@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCE Class-3 સંપૂર્ણ અભ્યાસ માર્ગદર્શિકા | Complete Study Guide</title>
+    <meta name="description" content="CCE Class-3 પરીક્ષા માટે સંપૂર્ણ અભ્યાસ સામગ્રી - ઇતિહાસ, રાજનીતિ, ભૂગોળ, વિજ્ઞાન, અર્થશાસ્ત્ર, કળા અને સંસ્કૃતિ, સમસામયિક">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let reg of registrations) {
+                    reg.unregister();
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">📚</div>
+            <h1 class="splash-title">CCE Class-3</h1>
+            <p class="splash-subtitle">સંપૂર્ણ અભ્યાસ માર્ગદર્શિકા</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="splash-hint">30 દિવસમાં પરીક્ષા પાસ કરો! 🎯</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="app hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button id="menuBtn" class="menu-btn" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <h1 class="header-title">
+                    <span class="header-icon">📚</span>
+                    CCE Class-3 Guide
+                </h1>
+            </div>
+            <div class="header-right" style="gap: 0.75rem;">
+                <div class="search-box-header" style="position: relative; display: flex; align-items: center;">
+                    <input type="text" id="globalSearchInput" placeholder="🔍 શોધો (વિષય/પ્રશ્ન)..." 
+                           style="padding: 0.4rem 0.8rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-primary); font-size: 0.85rem; width: 180px; transition: all 0.3s ease;"
+                           onkeyup="handleGlobalSearch(event)" />
+                </div>
+                <button class="cbt-btn-nav cbt-btn-submit" 
+                        style="padding: 0.4rem 0.9rem; font-size: 0.85rem; background: linear-gradient(135deg, #e11d48, #be123c); color: white; border-radius: 20px; box-shadow: 0 2px 8px rgba(225,29,72,0.4);"
+                        onclick="startCbtExam('mocktest1', 180)">
+                    🎯 CBT Mock Tests
+                </button>
+                <button onclick="showBookmarksView()" title="બુકમાર્ક્સ" style="background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; color: #f59e0b; padding: 0.4rem 0.75rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">
+                    🔖 બુકમાર્ક્સ
+                </button>
+                <button onclick="showErrorBookView()" title="AI Error Book" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; padding: 0.4rem 0.75rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">
+                    ⚠️ AI Error Book
+                </button>
+                <div class="progress-ring-container" title="Overall Progress">
+                    <svg class="progress-ring" width="40" height="40">
+                        <circle class="progress-ring-bg" cx="20" cy="20" r="16"/>
+                        <circle id="progressCircle" class="progress-ring-circle" cx="20" cy="20" r="16"/>
+                    </svg>
+                    <span id="progressPercent" class="progress-percent">0%</span>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>📋 વિષયો & Mock Tests</h2>
+                <button id="closeSidebar" class="close-sidebar">✕</button>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Dynamic content -->
+            </nav>
+            <div class="sidebar-footer">
+                <div class="study-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streakCount" class="streak-count">0</span>
+                    <span class="streak-label">દિવસ streak</span>
+                </div>
+            </div>
+        </aside>
+        <div id="overlay" class="overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboardView" class="view active">
+                <div class="dashboard">
+                    <!-- Welcome Card -->
+                    <div class="welcome-card">
+                        <div class="welcome-text">
+                            <h2>🎯 CCE Class-3 પરીક્ષા તૈયારી</h2>
+                            <p>30 દિવસમાં સંપૂર્ણ અભ્યાસ - બધા જ વિષયો & Mock Tests એક જ જગ્યાએ!</p>
+                            <button class="cbt-btn-nav cbt-btn-submit" 
+                                    style="margin-top: 0.75rem; padding: 0.6rem 1.25rem; font-size: 0.95rem; background: linear-gradient(135deg, #e11d48, #be123c); color: white; border-radius: 25px; box-shadow: 0 4px 12px rgba(225,29,72,0.4);"
+                                    onclick="startCbtExam('mocktest1', 180)">
+                                ⚡ 3-Hour CBT Mock Tests આપો (ઓરિજિનલ પેપર્સ) →
+                            </button>
+                        </div>
+                        <div class="welcome-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="totalTopics">0</span>
+                                <span class="stat-label">કુલ ટૉપિક્સ</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="completedTopics">0</span>
+                                <span class="stat-label">પૂર્ણ</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="quizScore">0</span>
+                                <span class="stat-label">Quiz Score</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CCE Official Pattern Blueprint & Paper Analyzer Hub -->
+                    <div class="pattern-analyzer-card" style="margin: 1.5rem 0; padding: 1.5rem; background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)); border: 1px solid var(--accent); border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+                            <div>
+                                <span style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">📊 Official CCE Pattern Blueprint</span>
+                                <h3 style="font-size: 1.3rem; margin-top: 0.5rem; font-weight: 800; color: #fff;">CCE Class-3 પરીક્ષા ગુણભાર & High-Weightage વિશ્લેષણ</h3>
+                                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.25rem;">છેલ્લાં 110+ ઓરિજિનલ પરીક્ષા પ્રશ્નો અને CCE 2024 શિફ્ટ પેટર્ન પર આધારિત પૃથક્કરણ</p>
+                            </div>
+                            <button class="cbt-btn-nav" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 0.65rem 1.25rem; font-weight: bold; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3);" onclick="openPaperUploadModal()">
+                                📤 નવું પ્રશ્નપત્ર અપલોડ / એનાલાઇઝ કરો →
+                            </button>
+                        </div>
+
+                        <!-- Subject Weightage Bar Chart Visualizer -->
+                        <div class="weightage-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.85rem; margin-bottom: 1.25rem;">
+                            <div style="background: rgba(132, 204, 22, 0.1); border: 1px solid #84cc16; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #a3e635; font-weight: bold;">📐 ગણિત (Math)</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #84cc16; margin: 0.2rem 0;">40.0%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">44 પ્રશ્નો • ⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid #f43f5e; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #fda4af; font-weight: bold;">🧩 રીઝનિંગ (Reasoning)</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #f43f5e; margin: 0.2rem 0;">34.5%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">38 પ્રશ્નો • ⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid #6366f1; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #a5b4fc; font-weight: bold;">⚖️ બંધારણ (Polity)</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #6366f1; margin: 0.2rem 0;">7.3%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">8 પ્રશ્નો • ⭐⭐⭐⭐☆</div>
+                            </div>
+                            <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid #06b6d4; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #67e8f9; font-weight: bold;">🔤 અંગ્રેજી (English)</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #06b6d4; margin: 0.2rem 0;">5.5%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">6 પ્રશ્નો • ⭐⭐⭐⭐☆</div>
+                            </div>
+                            <div style="background: rgba(236, 72, 153, 0.1); border: 1px solid #ec4899; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #f9a8d4; font-weight: bold;">✍️ ગુજરાતી (Gujarati)</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #ec4899; margin: 0.2rem 0;">5.5%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">6 પ્રશ્નો • ⭐⭐⭐⭐☆</div>
+                            </div>
+                            <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid #8b5cf6; padding: 0.75rem; border-radius: 10px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #c4b5fd; font-weight: bold;">💻 કમ્પ્યુટર / વિજ્ઞાન</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #8b5cf6; margin: 0.2rem 0;">7.2%</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">7 પ્રશ્નો • ⭐⭐⭐☆</div>
+                            </div>
+                        </div>
+
+                        <!-- Top Repeated Topics Quick Access -->
+                        <div style="background: var(--bg-surface); padding: 1rem; border-radius: 12px; border-left: 4px solid var(--accent);">
+                            <strong style="color: var(--accent-light); font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">🔥 પરીક્ષામાં વારંવાર પુનરાવર્તિત થતા મુખ્ય ટોપિક્સ (High Probability Questions):</strong>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ બીજગણિત ($x \pm 1/x$, $a^3$)</span>
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ ન્યાય નિર્ણય (Syllogism)</span>
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ શ્રેણી (Series - ઘન/ચોરસ)</span>
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ મૂળભૂત અધિકારો (કલમ 12-35)</span>
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ રક્ત સંબંધ & Coding</span>
+                                <span style="background: var(--bg-card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">⭐ Jumbled Sentences & Samas</span>
+                            </div>
+                        <!-- Special Target Banner for Maths & Reasoning Complete Candidates -->
+                        <div style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(99, 102, 241, 0.15)); border: 2px stroke var(--accent); border-radius: 12px; padding: 1.25rem; margin-top: 1rem; border-left: 6px solid #ec4899; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <span style="background: #ec4899; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800;">🔥 SPECIAL TARGET PLANNER</span>
+                                <h4 style="font-size: 1.15rem; margin-top: 0.4rem; font-weight: 800; color: #fff;">ગણિત & રીઝનિંગ 100% પૂર્ણ છે? બાકીના 60 માર્ક્સ (English, Gujarati, GA) માસ્ટર કરો!</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">GSEB Std 10/12 અને CCE 2024 શિફ્ટ પેટર્ન આધારિત 60-દિવસીય માસ્ટર અભ્યાસ પ્લાન અને High-Yield પ્રશ્નો!</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button onclick="showPlanView('60days')" style="padding: 0.65rem 1.2rem; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; border-radius: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(236,72,153,0.4);">
+                                    🎯 60-Day Study Plan જુઓ →
+                                </button>
+                                <button onclick="startCbtExam('target60marks', 180)" style="padding: 0.65rem 1.2rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.4);">
+                                    ⚡ 60 Marks Special CBT Test →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Cards -->
+                    <h3 class="section-title">📖 વિષયવાર અભ્યાસ સામગ્રી (Subject Notes)</h3>
+                    <div class="subject-grid" id="subjectGrid">
+                        <!-- Dynamic core subjects content -->
+                    </div>
+
+                    <!-- Mock Tests Hub Section -->
+                    <div class="section-header" style="display: flex; align-items: center; justify-content: space-between; margin: 2rem 0 1rem 0;">
+                        <h3 class="section-title" style="margin-bottom: 0;">📝 મોક ટેસ્ટ & ઓરિજિનલ પેપર્સ (CBT Mock Test Hub)</h3>
+                        <span style="background: var(--danger-light); color: var(--danger); padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">⚡ 3-Hour CBT Mode</span>
+                    </div>
+                    <div class="subject-grid" id="mockTestGrid">
+                        <!-- Dynamic Mock Test Paper Cards -->
+                    </div>
+
+                    <!-- 30-Day Plan -->
+                    <h3 class="section-title">📅 30-દિવસ અભ્યાસ યોજના</h3>
+                    <div class="study-plan" id="studyPlan">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <!-- Most Repeated Topics -->
+                    <h3 class="section-title">🔴 સૌથી વધુ પૂછાતા પ્રશ્નો</h3>
+                    <div class="repeated-topics" id="repeatedTopics">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subject View -->
+            <section id="subjectView" class="view">
+                <div class="subject-header" id="subjectHeader">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <div class="subject-info">
+                        <h2 id="subjectTitle"></h2>
+                        <div class="subject-progress-bar">
+                            <div id="subjectProgressBar" class="progress-fill"></div>
+                        </div>
+                        <span id="subjectProgressText" class="progress-text"></span>
+                    </div>
+                </div>
+                <div class="topic-list" id="topicList">
+                    <!-- Dynamic content -->
+                </div>
+            </section>
+
+            <!-- Topic View -->
+            <section id="topicView" class="view">
+                <div class="topic-header">
+                    <button class="back-btn" id="topicBackBtn">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2 id="topicTitle"></h2>
+                </div>
+                <div class="topic-content" id="topicContent">
+                    <!-- Dynamic content -->
+                </div>
+                <div class="topic-actions">
+                    <button id="markCompleteBtn" class="btn-complete" onclick="toggleTopicComplete()">
+                        ✅ પૂર્ણ થયું
+                    </button>
+                    <button class="btn-quiz" onclick="startQuiz()">
+                        📝 Quiz લો
+                    </button>
+                    <button class="btn-next" id="nextTopicBtn" onclick="nextTopic()">
+                        આગળ →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Quiz View -->
+            <section id="quizView" class="view">
+                <div class="quiz-header">
+                    <button class="back-btn" onclick="exitQuiz()">
+                        <span>←</span> બંધ કરો
+                    </button>
+                    <h2>📝 Quick Quiz</h2>
+                    <div class="quiz-progress">
+                        <span id="quizCurrent">1</span>/<span id="quizTotal">5</span>
+                    </div>
+                </div>
+                <div class="quiz-content" id="quizContent">
+                    <!-- Dynamic content -->
+                </div>
+                <div class="quiz-result hidden" id="quizResult">
+                    <!-- Dynamic result -->
+                </div>
+            </section>
+
+            <!-- CBT Exam View -->
+            <section id="cbtExamView" class="view">
+                <div class="cbt-header">
+                    <div class="cbt-title-area">
+                        <button class="back-btn" onclick="exitCbtExam()" style="margin-bottom: 0;">
+                            <span>←</span> ટેસ્ટમાંથી બહાર નીકળો
+                        </button>
+                        <h3 id="cbtExamTitle" style="margin-top: 0.5rem;">🎯 કોન્સ્ટેબલ / CCE CBT Mock Test</h3>
+                    </div>
+                    <div class="cbt-timer-badge">
+                        <span>⏱️</span> <span id="cbtTimerDisplay">03:00:00</span>
+                    </div>
+                    <button class="cbt-btn-nav cbt-btn-submit" onclick="submitCbtExamConfirm()">
+                        📥 Submit Test
+                    </button>
+                </div>
+
+                <div class="cbt-layout">
+                    <!-- Question Box -->
+                    <div class="cbt-question-box">
+                        <div class="cbt-question-head">
+                            <span class="cbt-question-num" id="cbtQuestionNum">પ્રશ્ન 1 / 60</span>
+                            <span id="cbtCategoryBadge" style="background: var(--accent-glow); color: var(--accent-light); padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">ગણિત / રીઝનિંગ</span>
+                        </div>
+                        <div id="cbtQuestionContent">
+                            <!-- Question text, diagram & options -->
+                        </div>
+                        <div class="cbt-nav-bar">
+                            <button class="cbt-nav-btn cbt-btn-prev" onclick="prevCbtQuestion()">← અગાઉનો પ્રશ્ન</button>
+                            <button class="cbt-nav-btn cbt-btn-mark" onclick="toggleMarkCbtQuestion()">🔖 Mark for Review</button>
+                            <button class="cbt-nav-btn cbt-btn-prev" onclick="clearCbtAnswer()">❌ Clear Choice</button>
+                            <button class="cbt-nav-btn cbt-btn-next" onclick="nextCbtQuestion()">આગળનો પ્રશ્ન →</button>
+                        </div>
+                    </div>
+
+                    <!-- Question Palette -->
+                    <div class="cbt-palette-box">
+                        <h4 style="font-weight: 700; margin-bottom: 0.5rem;">Question Palette</h4>
+                        <div class="cbt-palette-grid" id="cbtPaletteGrid">
+                            <!-- Buttons 1 to N -->
+                        </div>
+                        <div style="font-size: 0.75rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.75rem;">
+                            <div><span style="color: #10b981;">●</span> સાચો (Green)</div>
+                            <div><span style="color: #ef4444;">●</span> ખોટો (Red)</div>
+                            <div><span style="color: #d97706;">●</span> Review (Yellow)</div>
+                            <div><span style="color: var(--text-muted);">●</span> બાકી (Grey)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CBT Result & Review View -->
+            <section id="cbtResultView" class="view">
+                <div class="cbt-header">
+                    <button class="back-btn" onclick="showDashboard()" style="margin-bottom: 0;">
+                        <span>←</span> ડેશબોર્ડ પર જાઓ
+                    </button>
+                    <h3>📊 ટેસ્ટ પરિણામ અને મિસ્ટેક સોલ્યુશન એનાલિસિસ</h3>
+                </div>
+                <div class="cbt-result-summary" id="cbtResultSummary">
+                    <!-- Dynamic Summary Card -->
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;" id="cbtFilterButtons">
+                    <button class="cbt-nav-btn cbt-btn-next" onclick="filterCbtReview('all')">તમામ પ્રશ્નો</button>
+                    <button class="cbt-nav-btn" style="background: #ef4444; color: white;" onclick="filterCbtReview('wrong')">❌ ખોટા પડેલા પ્રશ્નો (Mistakes)</button>
+                    <button class="cbt-nav-btn" style="background: #10b981; color: white;" onclick="filterCbtReview('correct')">✅ સાચા પડેલા પ્રશ્નો</button>
+                    <button class="cbt-nav-btn" style="background: #f59e0b; color: white;" onclick="filterCbtReview('unattempted')">⚠️ બાકી રહી ગયેલા</button>
+                </div>
+                <div id="cbtReviewList">
+                    <!-- Detailed Questions Review Cards -->
+                </div>
+            </section>
+
+            <!-- Study Plan View -->
+            <section id="planView" class="view">
+                <div class="plan-header">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2>📅 30-દિવસ વિગતવાર અભ્યાસ યોજના</h2>
+                </div>
+                <div class="plan-content" id="planContent">
+                    <!-- Dynamic content -->
+                </div>
+            </section>
+
+            <!-- Search Results View -->
+            <section id="searchResultView" class="view">
+                <div class="plan-header">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2>🔍 શોધો - પરિણામો (Search Results)</h2>
+                </div>
+                <div id="searchResultsList" style="margin-top: 1rem;">
+                    <!-- Dynamic Search Results -->
+                </div>
+            </section>
+
+            <!-- Bookmarks View -->
+            <section id="bookmarksView" class="view">
+                <div class="plan-header">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2>🔖 સેવ કરેલા બુકમાર્ક્સ (Saved Bookmarks)</h2>
+                </div>
+                <div id="bookmarksList" style="margin-top: 1rem;">
+                    <!-- Dynamic Bookmarks List -->
+                </div>
+            </section>
+
+            <!-- AI Error Book View -->
+            <section id="errorBookView" class="view">
+                <div class="plan-header" style="justify-content: space-between;">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2>⚠️ AI Error Book (મિસ્ટેક લૉગ & રિવિઝન)</h2>
+                    <button class="cbt-nav-btn cbt-btn-submit" onclick="startErrorBookPractice()" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white;">
+                        ⚡ ખોટા પડેલા પ્રશ્નોની રી-ટેસ્ટ આપો →
+                    </button>
+                </div>
+                <div id="errorBookList" style="margin-top: 1rem;">
+                    <!-- Dynamic Error Book Questions -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Nav (Mobile) -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="showDashboard()" data-view="dashboard">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">હોમ</span>
+            </button>
+            <button class="nav-item" onclick="scrollToMockTests()" data-view="mocktests">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-label">મોક ટેસ્ટ</span>
+            </button>
+            <button class="nav-item" onclick="showPlanView()" data-view="plan">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">પ્લાન</span>
+            </button>
+            <button class="nav-item" onclick="showBookmarks()" data-view="bookmarks">
+                <span class="nav-icon">⭐</span>
+                <span class="nav-label">બુકમાર્ક</span>
+            </button>
+            <button class="nav-item" onclick="showStats()" data-view="stats">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">પ્રગતિ</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Question Paper Upload & Pattern Analyzer Modal -->
+    <div id="paperUploadModal" class="modal-overlay hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: var(--bg-card); border: 1px solid var(--accent); width: 100%; max-width: 650px; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--accent-light);">📤 પ્રશ્નપત્ર અપલોડ & Auto Pattern Analyzer</h3>
+                <button onclick="closePaperUploadModal()" style="background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">✕</button>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                અહીં તમારું પ્રશ્નપત્ર (**PDF, JSON અથવા Text format**) અપલોડ કરો. સિસ્ટમ આપોઆપ **પ્રશ્નપત્રનું એનાલિસિસ** કરશે, **High Weightage વિષયો** તારવશે અને ઓરિજિનલ **CBT Mock Test** બનાવશે!
+            </p>
+            
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📁 Option 1: PDF / JSON / TXT File અપલોડ કરો</label>
+                <input type="file" id="paperFileInput" accept=".pdf,.json,.txt" style="width: 100%; padding: 0.75rem; background: var(--bg-surface); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text-primary);" onchange="handlePaperFileUpload(event)">
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🖼️ Option 2: આકૃતિ / Figure ઈમેજ ઉમેરો (ઈચ્છાધીન)</label>
+                <input type="file" id="diagramFileInput" accept="image/*" style="width: 100%; padding: 0.6rem; background: var(--bg-surface); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text-primary);" onchange="handleDiagramImageUpload(event)">
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📝 Option 3: પ્રશ્નપત્ર Text પેસ્ટ કરો</label>
+                <textarea id="paperTextarea" rows="5" placeholder="ઉદાહરણ:\n1. [(4)² + (4)³] ÷ 20 = a²\nA) 2\nB) 4\nC) 3\nD) 1\n\n2. CCE 2024 પ્રશ્ન..." style="width: 100%; padding: 0.75rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: monospace; font-size: 0.85rem;"></textarea>
+            </div>
+
+            <div id="paperAnalysisResult" style="display: none; background: var(--bg-surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--success); margin-bottom: 1.25rem;">
+                <!-- Dynamic Analysis Output -->
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                <button onclick="closePaperUploadModal()" style="padding: 0.65rem 1.25rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-weight: bold; cursor: pointer;">કેન્સલ</button>
+                <button onclick="processUploadedPaper()" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.4);">🚀 એનાલાઇઝ કરો & Mock Test બનાવો</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram Zoom Lightbox Modal -->
+    <div id="diagramZoomModal" class="modal-overlay hidden" onclick="closeDiagramZoomModal()" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 1rem; cursor: zoom-out;">
+        <div style="position: relative; max-width: 95vw; max-height: 95vh; text-align: center;">
+            <button onclick="closeDiagramZoomModal()" style="position: absolute; top: -40px; right: 0; background: white; color: black; border: none; font-size: 1.2rem; font-weight: bold; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">✕</button>
+            <img id="diagramZoomImg" src="" style="max-width: 95vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.8); border: 2px solid var(--accent);">
+            <div style="color: white; margin-top: 0.5rem; font-size: 0.9rem; font-weight: bold;">🔍 આકૃતિ પૂર્ણ સ્ક્રીનમાં જોઈ રહ્યા છો (ક્લિક કરો બંધ કરવા)</div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="data-history.js?v=2026"></script>
+    <script src="data-polity.js?v=2026"></script>
+    <script src="data-geography.js?v=2026"></script>
+    <script src="data-english.js?v=2026"></script>
+    <script src="data-reasoning.js?v=2026"></script>
+    <script src="data-math.js?v=2026"></script>
+    <script src="data-mocktest1.js?v=2026"></script>
+    <script src="data-previousyears.js?v=2026"></script>
+    <script src="data-cce2024pattern.js?v=2026"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+    <script src="app.js?v=2026"></script>
+</body>
+</html>

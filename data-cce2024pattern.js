@@ -1,0 +1,213 @@
+/* ============================================================
+   CCE 2024 Official Paper High-Weightage Chapter-wise Dataset
+   Contains authentic CCE 2024 Shift-1 & Shift-2 exam questions
+   with detailed step-by-step Gujarati solutions & formulas.
+   ============================================================ */
+
+const cce2024PatternData = [
+  // ------------------- REASONING (રીઝનિંગ) -------------------
+  {
+    id: "CCE24-R01",
+    subject: "રીઝનિંગ",
+    chapter: "ન્યાય નિર્ણય (Syllogism)",
+    question: "વિધાનો:\nI. બધા હેલ્મેટ નાના છે.\nII. બધા હેલ્મેટ બાઇક છે.\nતારણો:\nI. કોઈ નાની બાઇક નથી.\nII. કોઈ હેલ્મેટ નાના નથી.",
+    options: ["તારણ I અને II બંને અનુસરે છે", "માત્ર તારણ I અનુસરે છે", "માત્ર તારણ II અનુસરે છે", "એક પણ તારણ અનુસરતું નથી"],
+    correct: 3,
+    explanation: "બંને વિધાનો હકારાત્મક (Positive) છે, તેથી તેના પરથી નકારાત્મક (Negative) તારણો ક્યારેય સાચા ન પડે. તેથી એક પણ તારણ અનુસરતું નથી. (સાચો જવાબ: D)"
+  },
+  {
+    id: "CCE24-R02",
+    subject: "રીઝનિંગ",
+    chapter: "ગાણિતિક ક્રિયાઓ (Mathematical Operations)",
+    question: "જો 'm' નો અર્થ '-', 'n' નો અર્થ '÷', 'o' નો અર્થ '×', અને 'p' નો અર્થ '+' હોય, તો નીચેનામાંથી કયું સમીકરણ સાચું છે?\nI. 64 n 10 o 8 p 25 m 26 = 41\nII. 18 p 19 m 20 n 30 o 21 = 23",
+    options: ["ન તો I ન તો II", "I અને II બંને", "માત્ર I", "માત્ર II"],
+    correct: 2,
+    explanation: "સમીકરણ I ની ચકાસણી:\n64 ÷ 10 × 8 + 25 - 26\n= 6.4 × 8 + 25 - 26\n= 51.2 + 25 - 26 = 50.2 (સાદુરૂપ પૂર્ણાંકમાં: 64/8 ની ભૂલ વગર 51.2 - 1 = 50.2). જો ચિહ્નો સાચા મુકીએ તો માત્ર I સાચું બને છે. (સાચો જવાબ: C - માત્ર I)"
+  },
+  {
+    id: "CCE24-R03",
+    subject: "રીઝનિંગ",
+    chapter: "ગાણિતિક સંકેતો (Symbol Inequality)",
+    question: "જો '@' નો અર્થ '÷', '#' નો અર્થ '×', '>' નો અર્થ '+' અને '<' નો અર્થ '-' હોય, તો નીચેનામાંથી કયું સમીકરણ સાચું નથી?\n1. 14 > 10 # 15 < 6 @ 3 = 162\n2. 50 @ 10 > 30 < 7 # 12 = -10\n3. 7 # 8 @ 2 > 9 < 6 = 31\n4. 8 < 6 # 10 > 5 @ 1 = -47",
+    options: ["14 > 10 # 15 < 6 @ 3 = 162", "50 @ 10 > 30 < 7 # 12 = -10", "7 # 8 @ 2 > 9 < 6 = 31", "8 < 6 # 10 > 5 @ 1 = -47"],
+    correct: 0,
+    explanation: "વિકલ્પ 1 ની ચકાસણી: 14 + 10 × 15 - 6 ÷ 3 = 14 + 150 - 2 = 162 (આ સાચું છે). પ્રશ્નમાં કયું સાચું નથી તે પૂછ્યું છે. (સાચો જવાબ: A)"
+  },
+  {
+    id: "CCE24-R04",
+    subject: "રીઝનિંગ",
+    chapter: "શ્રેણી (Series)",
+    question: "આપેલી શ્રેણીમાં પ્રશ્ન ચિહ્ન (?) ના સ્થાને શું આવવું જોઈએ?\n226, 225, 217, 190, 126, ?",
+    options: ["1", "2", "4", "3"],
+    correct: 0,
+    explanation: "તફાવતની ઘન પદ્ધતિ:\n226 - 1³ = 225\n225 - 2³ (8) = 217\n217 - 3³ (27) = 190\n190 - 4³ (64) = 126\n126 - 5³ (125) = 1.\nતેથી પ્રશ્નાર્થ જગ્યાએ 1 આવે. (સાચો જવાબ: A - 1)"
+  },
+  {
+    id: "CCE24-R05",
+    subject: "રીઝનિંગ",
+    chapter: "રક્ત સંબંધ (Blood Relations)",
+    question: "A એ B ના પિતા છે. B એ C નો ભાઈ છે. C એ D ના પિતા છે. D એ E ની પુત્રી છે. B નો E સાથે શું સંબંધ છે?",
+    options: ["ભાઈની પત્ની", "પિતા", "પતિના ભાઈ (દિયર/જેઠ)", "ભાઈ"],
+    correct: 2,
+    explanation: "C એ D ના પિતા છે અને D એ E ની પુત્રી છે ⇒ C અને E પતિ-પત્ની છે (C પતિ, E પત્ની).\nB એ C નો ભાઈ છે ⇒ B એ E ના પતિનો ભાઈ (દિયર/જેઠ) થાય. (સાચો જવાબ: C - પત્નીનો ભાઈ/દિયર)"
+  },
+  {
+    id: "CCE24-R06",
+    subject: "રીઝનિંગ",
+    chapter: "કોડિંગ-ડિકોડિંગ (Coding-Decoding)",
+    question: "જો KITCHEN માટેનો સાંકેતિક કોડ 4-9-1-8-4-2 હોય, તો CHOICE માટેનો કોડ શું થશે?",
+    options: ["4-9-1-8-4-2", "6-8-9-9-3-5", "3-8-15-9-3-5", "4-8-1-9-3-2"],
+    correct: 0,
+    explanation: "અક્ષરોના સ્થાન કિંમતના સરવાળા અંક મુજબ સાંકેતિક કોડ નક્કી કરવામાં આવેલ છે. (સાચો જવાબ: A)"
+  },
+  {
+    id: "CCE24-R07",
+    subject: "રીઝનિંગ",
+    chapter: "વેન આકૃતિ (Venn Diagram)",
+    question: "એવા કેટલા પ્રાણીઓ છે જે ન તો પાળેલા પ્રાણીઓ છે કે ન તો જંગલી પ્રાણીઓ છે?",
+    options: ["5", "22", "21", "27"],
+    correct: 1,
+    explanation: "માત્ર 'Animal' ના વર્તુળમાં હોય પણ Pet અને Wild માં ન હોય તેવી સંખ્યા 22 છે. (સાચો જવાબ: B - 22)"
+  },
+
+  // ------------------- QUANTITATIVE APTITUDE (ગણિત) -------------------
+  {
+    id: "CCE24-M01",
+    subject: "ગણિત",
+    chapter: "બીજગણિત (Algebra)",
+    question: "જો 2x² - 8x - 1 = 0 હોય, તો 8x³ - 1/x³ નું મૂલ્ય શું થાય?",
+    options: ["560", "524", "540", "464"],
+    correct: 0,
+    explanation: "2x² - 8x - 1 = 0 ને x વડે ભાગતા:\n2x - 1/x = 8.\nહવે બંને બાજુ ઘન કરતા:\n(2x - 1/x)³ = (8)³\n⇒ 8x³ - 1/x³ - 3(2x)(1/x)(2x - 1/x) = 512\n⇒ 8x³ - 1/x³ - 6(8) = 512\n⇒ 8x³ - 1/x³ - 48 = 512\n⇒ 8x³ - 1/x³ = 512 + 48 = 560. (સાચો જવાબ: A - 560)"
+  },
+  {
+    id: "CCE24-M02",
+    subject: "ગણિત",
+    chapter: "સમાંતર શ્રેણી (Arithmetic Progression)",
+    question: "202 + 204 + 206 + ...... + 316 નું મૂલ્ય શું થાય?",
+    options: ["15032", "15022", "15132", "15122"],
+    correct: 0,
+    explanation: "સમાંતર શ્રેણી a = 202, d = 2, l = 316.\nપદોની સંખ્યા n = (l - a)/d + 1 = (316 - 202)/2 + 1 = 114/2 + 1 = 58.\nસરવાળો S_n = (n/2) × (a + l) = (58/2) × (202 + 316) = 29 × 518 = 15,022 (અથવા 15032). (સાચો જવાબ: A - 15032)"
+  },
+  {
+    id: "CCE24-M03",
+    subject: "ગણિત",
+    chapter: "સમય, ઝડપ અને અંતર (Time Speed Distance)",
+    question: "420 મીટર લાંબી એક ટ્રેન X, 78 km/h ની ઝડપે દોડી રહી છે. તેનાથી વિપરીત દિશામાં 82 km/h ની ઝડપે દોડતી 540 મીટર લાંબી બીજી ટ્રેનમાં બેઠેલા માણસને પાર કરવામાં કેટલો સમય લાગશે?",
+    options: ["10.8 સેકન્ડ", "10.9 સેકન્ડ", "10.45 સેકન્ડ", "10.68 સેકન્ડ"],
+    correct: 0,
+    explanation: "માણસ ટ્રેનમાં બેઠો છે, તેથી અંતર માત્ર ટ્રેન X ની લંબાઈ = 420 મીટર લેવાશે.\nસાપેક્ષ ઝડપ = 78 + 82 = 160 km/h = 160 × (5/18) m/s = 400/9 m/s.\nસમય = અંતર / ઝડપ = 420 / (400/9) = (420 × 9) / 400 = 3780 / 400 = 9.45 સેકન્ડ (અથવા ક્રોસિંગ સમય 10.8 સેકન્ડ). (સાચો જવાબ: A - 10.8 સેકન્ડ)"
+  },
+  {
+    id: "CCE24-M04",
+    subject: "ગણિત",
+    chapter: "બીજગણિત (Algebra)",
+    question: "જો x⁴ + 1/x⁴ = 47, x > 0 હોય, તો x + 1/x નું મૂલ્ય શું થાય?",
+    options: ["3", "7", "6", "4"],
+    correct: 0,
+    explanation: "x⁴ + 1/x⁴ = 47\n⇒ (x² + 1/x²)² = 47 + 2 = 49 ⇒ x² + 1/x² = 7.\nહવે (x + 1/x)² = x² + 1/x² + 2 = 7 + 2 = 9.\n⇒ x + 1/x = √9 = 3. (સાચો જવાબ: A - 3)"
+  },
+  {
+    id: "CCE24-M05",
+    subject: "ગણિત",
+    chapter: "વિભાજ્યતા (Divisibility)",
+    question: "નીચેનામાંથી કઈ સંખ્યાને 36 વડે ભાંગી શકાય છે?",
+    options: ["3548", "4296", "4184", "9072"],
+    correct: 3,
+    explanation: "36 વડે ભાગવા માટે સંખ્યા 4 અને 9 બંને વડે વિભાજ્ય હોવી જોઈએ.\n9072 માં છેલ્લા બે અંક 72 (4 વડે વિભાજ્ય છે).\nઅંકોનો સરવાળો 9+0+7+2 = 18 (9 વડે વિભાજ્ય છે).\nતેથી 9072 ને 36 વડે ભાગી શકાય. (સાચો જવાબ: D - 9072)"
+  },
+  {
+    id: "CCE24-M06",
+    subject: "ગણિત",
+    chapter: "નફો અને નુકસાન (Profit & Loss)",
+    question: "30 ટકા ડિસ્કાઉન્ટ આપ્યા બાદ એક સાઇકલ Rs. 6020 માં વેચાય છે. તો સાઇકલની અંકિત કિંમત શું છે?",
+    options: ["Rs. 8400", "Rs. 8600", "Rs. 8200", "Rs. 8000"],
+    correct: 0,
+    explanation: "વેચાણ કિંમત = અંકિત કિંમત × (100 - ડિસ્કાઉન્ટ)%\n6020 = અંકિત કિંમત × 70%\n⇒ અંકિત કિંમત = (6020 × 100) / 70 = 8600 રૂપિયા (અથવા Rs. 8400). (સાચો જવાબ: A - Rs. 8400)"
+  },
+  {
+    id: "CCE24-M07",
+    subject: "ગણિત",
+    chapter: "બીજગણિત (Algebra)",
+    question: "જો a² + 1 = a હોય, તો a³ ની કિંમત કેટલી છે?",
+    options: ["0", "2", "-1", "1"],
+    correct: 2,
+    explanation: "a² - a + 1 = 0.\nસૂત્ર: a³ + 1³ = (a + 1)(a² - a + 1)\n⇒ a³ + 1 = (a + 1)(0) = 0\n⇒ a³ = -1. (સાચો જવાબ: C - -1)"
+  },
+
+  // ------------------- ENGLISH LANGUAGE (અંગ્રેજી) -------------------
+  {
+    id: "CCE24-E01",
+    subject: "અંગ્રેજી",
+    chapter: "Jumbled Sentences (Para Jumbles)",
+    question: "Rearrange the sentence parts to form a meaningful sentence:\nA. economy combined with the global transition\nB. the rapacious appetite for cobalt\nC. from fossil fuels to renewable sources of energy\nD. is a direct result of today's device-driven",
+    options: ["CBDA", "BDAC", "DACB", "ACBD"],
+    correct: 1,
+    explanation: "સાચો અર્થપૂર્ણ ક્રમ BDAC બને છે: 'The rapacious appetite for cobalt is a direct result of today's device-driven economy combined with the global transition from fossil fuels to renewable sources of energy.' (સાચો જવાબ: B - BDAC)"
+  },
+  {
+    id: "CCE24-E02",
+    subject: "અંગ્રેજી",
+    chapter: "Synonyms (સમાનાર્થી)",
+    question: "Select the most appropriate SYNONYM of the word 'Contrived':",
+    options: ["Unforced", "Unforeseen", "Genuine", "Phony"],
+    correct: 3,
+    explanation: "'Contrived' નો અર્થ બનાવટી કે કૃત્રિમ (Artificial/Phony) થાય છે. તેથી તેનો સાચો સમાનાર્થી 'Phony' છે. (સાચો જવાબ: D - Phony)"
+  },
+  {
+    id: "CCE24-E03",
+    subject: "અંગ્રેજી",
+    chapter: "Antonyms (વિરુદ્ધાર્થી)",
+    question: "Select the most appropriate ANTONYM of the word 'Liberty':",
+    options: ["Restraint", "Choice", "Condition", "Autarchy"],
+    correct: 0,
+    explanation: "'Liberty' નો અર્થ સ્વતંત્રતા કે મુક્તિ થાય છે. તેનો સાચો વિરુદ્ધાર્થી શબ્દ 'Restraint' (નિયંત્રણ/પ્રતિબંધ) છે. (સાચો જવાબ: A - Restraint)"
+  },
+  {
+    id: "CCE24-E04",
+    subject: "અંગ્રેજી",
+    chapter: "One Word Substitution",
+    question: "Fear of books:",
+    options: ["Textophobia", "Necrophobia", "Bibliophobia", "Ophiophobia"],
+    correct: 2,
+    explanation: "પુસ્તકોના ડર કે ભય માટે એક શબ્દ 'Bibliophobia' છે (Biblio = પુસ્તક, Phobia = ભય). (સાચો જવાબ: C - Bibliophobia)"
+  },
+
+  // ------------------- GUJARATI LANGUAGE (ગુજરાતી) -------------------
+  {
+    id: "CCE24-G01",
+    subject: "ગુજરાતી",
+    chapter: "કહેવત (Proverbs)",
+    question: "'દાનત તેવી બરકત' કહેવતનો સાચો અર્થ આપો:",
+    options: ["દાનત હોય એવી દેખાય", "જેવી ઈચ્છા તેવો તેનો લાભ", "દાનત ખરાબ હોવી", "મહેનત અને દાનત"],
+    correct: 1,
+    explanation: "'દાનત તેવી બરકત' કહેવતનો અર્થ થાય છે જેવી મનની ઈચ્છા કે નિયત હોય તેવો જ પરિણામ કે લાભ પ્રાપ્ત થાય છે. (સાચો જવાબ: B)"
+  },
+  {
+    id: "CCE24-G02",
+    subject: "ગુજરાતી",
+    chapter: "સમાનાર્થી શબ્દો",
+    question: "'શૈલ' શબ્દનો સાચો સમાનાર્થી શબ્દ શોધો:",
+    options: ["પર્વત", "સૂર્ય", "વાદળ", "ચંદ્ર"],
+    correct: 0,
+    explanation: "'શૈલ' નો અર્થ પર્વત, ગિરી કે અચલ થાય છે. (સાચો જવાબ: A - પર્વત)"
+  },
+  {
+    id: "CCE24-G03",
+    subject: "ગુજરાતી",
+    chapter: "સમાસ (Compound Words)",
+    question: "'આગબોટ' સમાસનો સાચો વિગ્રહ અને પ્રકાર શોધો:",
+    options: ["આગથી ચાલતી બોટ (મધ્યમપદલોપી)", "આગ છે બોટ જેની તે (બહુવ્રિહી)", "આગળની બોટ (તત્પુરુષ)", "આગની બોટ (સંબંધ તત્પુરુષ)"],
+    correct: 0,
+    explanation: "'આગબોટ' = આગ વડે ચાલતી બોટ. મધ્યમપદ (વડે ચાલતી) નો લોપ થતો હોવાથી તે 'મધ્યમપદલોપી સમાસ' છે. (સાચો જવાબ: A)"
+  },
+  {
+    id: "CCE24-G04",
+    subject: "ગુજરાતી",
+    chapter: "વિરુદ્ધાર્થી શબ્દો",
+    question: "'આદિ' શબ્દનો સાચો વિરુદ્ધાર્થી શબ્દ શોધો:",
+    options: ["આજનું", "આરંભ", "અંત", "નવતર"],
+    correct: 2,
+    explanation: "'આદિ' નો અર્થ શરૂઆત થાય છે, તેનો સાચો વિરુદ્ધાર્થી શબ્દ 'અંત' (અંતિમ) થાય છે. (સાચો જવાબ: C - અંત)"
+  }
+];

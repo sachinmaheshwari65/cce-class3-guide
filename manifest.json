@@ -1,0 +1,16 @@
+{
+  "name": "CCE Class-3 Study Guide",
+  "short_name": "CCE Guide",
+  "description": "CCE Class-3 સંપૂર્ણ અભ્યાસ માર્ગદર્શિકા - 100% Offline Access",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

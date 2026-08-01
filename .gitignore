@@ -1,0 +1,13 @@
+# Dependencies & Temp
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Workspace / IDE
+.vscode/
+.idea/
+
+# Local Dev Scratch
+scratch/
+*.tmp
