@@ -2724,14 +2724,28 @@ function renderCrackHub() {
       <!-- Section 3: Rapid Memory Flashcards -->
       <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-          <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin: 0;">
-            💡 Rapid Memory Recall Flashcards (ઝડપી યાદશક્તિ કાર્ડ્સ)
-          </h4>
+          <div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin: 0;">
+              💡 Rapid Memory Recall Flashcards (ઝડપી યાદશક્તિ કાર્ડ્સ)
+            </h4>
+            <span style="font-size: 0.8rem; color: #10b981; font-weight: bold;">🔒 Subject-wise Filterable (Zero Cross Mix Option)</span>
+          </div>
           <span style="font-size: 0.8rem; color: var(--text-muted);">કાર્ડ પર ક્લિક કરો ઉત્તર/ટ્રિક જોવા માટે</span>
         </div>
+
+        <!-- Subject Filter Tabs for Flashcards -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <button class="flashcard-filter-btn" data-cat="all" onclick="filterFlashcards('all')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--accent); color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: bold;">તમામ વિષય</button>
+          <button class="flashcard-filter-btn" data-cat="Reasoning" onclick="filterFlashcards('Reasoning')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 15px; cursor: pointer; font-weight: bold;">🧩 Reasoning</button>
+          <button class="flashcard-filter-btn" data-cat="Maths" onclick="filterFlashcards('Maths')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 15px; cursor: pointer; font-weight: bold;">📐 Maths</button>
+          <button class="flashcard-filter-btn" data-cat="English" onclick="filterFlashcards('English')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 15px; cursor: pointer; font-weight: bold;">📝 English</button>
+          <button class="flashcard-filter-btn" data-cat="Polity" onclick="filterFlashcards('Polity')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 15px; cursor: pointer; font-weight: bold;">⚖️ Polity</button>
+          <button class="flashcard-filter-btn" data-cat="History" onclick="filterFlashcards('History')" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 15px; cursor: pointer; font-weight: bold;">🏛️ History</button>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
           ${strategy.flashcards.map((card, idx) => `
-            <div id="flashcard-${idx}" class="flashcard-container" onclick="flipFlashcard(${idx})"
+            <div id="flashcard-${idx}" class="flashcard-container flashcard-card-item" data-category="${card.category}" onclick="flipFlashcard(${idx})"
                  style="background: var(--bg-surface); border: 1px solid var(--accent); padding: 1.25rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
               <div>
                 <span style="font-size: 0.7rem; font-weight: bold; background: var(--accent-glow); color: var(--accent-light); padding: 2px 8px; border-radius: 10px; text-transform: uppercase;">${card.category}</span>
@@ -2863,6 +2877,46 @@ function filterCourseCategory(cat) {
         }
     });
     showToast(`📂 દર્શાવી રહ્યા છીએ: ${cat === 'all' ? 'તમામ PDF મોડ્યુલ્સ' : cat}`);
+}
+
+function filterFlashcards(category) {
+    const cards = document.querySelectorAll('.flashcard-card-item');
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    const tabs = document.querySelectorAll('.flashcard-filter-btn');
+    tabs.forEach(t => {
+        if (t.dataset.cat === category) {
+            t.style.background = 'var(--accent)';
+            t.style.color = 'white';
+        } else {
+            t.style.background = 'var(--bg-surface)';
+            t.style.color = 'var(--text-secondary)';
+        }
+    });
+
+    showToast(`💡 ${category === 'all' ? 'તમામ Flashcards' : category + ' ના Flashcards'} દર્શાવી રહ્યા છીએ (No Mix)`);
+}
+
+function flipTopicFlashcard(idx) {
+    const cardText = document.getElementById(`topic-card-text-${idx}`);
+    if (!cardText) return;
+
+    const q = cardText.dataset.q;
+    const a = cardText.dataset.a;
+
+    if (cardText.dataset.flipped === 'true') {
+        cardText.innerHTML = `❓ ${q}`;
+        cardText.dataset.flipped = 'false';
+    } else {
+        cardText.innerHTML = `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${a}`;
+        cardText.dataset.flipped = 'true';
+    }
 }
 
 /* ============================================================
