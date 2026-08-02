@@ -248,3 +248,100 @@ const gsssbSrClerk2021Data = [
     explanation: "ભારતીય બંધારણની કલમ 352 હેઠળ રાષ્ટ્રીય કટોકટી (National Emergency) ની જોગવાઈ છે. (સાચો જવાબ: C - આર્ટિકલ-352)"
   }
 ];
+
+const recentExamsData = [
+  {
+    id: 1,
+    subject: "ગુજરાત ઇતિહાસ",
+    examName: "GPSSB Junior Clerk 2023",
+    question: "સિંધુ ખીણ સંસ્કૃતિનું નગર ધોળાવીરા ગુજરાતના કયા જિલ્લામાં આવેલું છે?",
+    options: ["અમદાવાદ", "કચ્છ", "સુરેન્દ્રનગર", "રાજકોટ"],
+    correct: 1,
+    explanation: "ધોળાવીરા કચ્છ જિલ્લાના ભચાઉ તાલુકાના ખદીરબેટમાં આવેલું સિંધુ ખીણની સંસ્કૃતિનું પ્રમુખ નગર છે. તેને 2021માં યુનેસ્કો વર્લ્ડ હેરિટેજ સાઈટનો દરજ્જો મળ્યો છે. (સાચો જવાબ: B - કચ્છ)"
+  },
+  {
+    id: 2,
+    subject: "વિજ્ઞાન",
+    examName: "GPSSB Junior Clerk 2023",
+    question: "માનવ શરીરમાં લોહી ગંઠાવાની પ્રક્રિયા (Blood Clotting) માં કયું વિટામિન મદદરૂપ થાય છે?",
+    options: ["વિટામિન A", "વિટામિન B", "વિટામિન C", "વિટામિન K"],
+    correct: 3,
+    explanation: "વિટામિન K એ રક્તસ્ત્રાવ અટકાવવા અને લોહી ગંઠાવાની પ્રક્રિયામાં અત્યંત જરૂરી છે. તેની ઉણપથી રક્તસ્ત્રાવ થવાનો ભય રહે છે. (સાચો જવાબ: D - વિટામિન K)"
+  },
+  {
+    id: 3,
+    subject: "ભારતનો ઇતિહાસ",
+    examName: "GPSSB Junior Clerk 2023",
+    question: "બંગાળના ભાગલા (1905) કયા વાઇસરોયના સમયમાં થયા હતા?",
+    options: ["લોર્ડ કર્ઝન", "લોર્ડ રિપન", "લોર્ડ ડેલહાઉસી", "લોર્ડ માઉન્ટબેટન"],
+    correct: 0,
+    explanation: "બંગાળના ભાગલા 16 ઓક્ટોબર 1905ના રોજ લોર્ડ કર્ઝન દ્વારા પાડવામાં આવ્યા હતા, જેનો મુખ્ય ઉદ્દેશ્ય હિન્દુ-મુસ્લિમ એકતા તોડવાનો હતો. (સાચો જવાબ: A - લોર્ડ કર્ઝન)"
+  },
+  {
+    id: 4,
+    subject: "ગણિત",
+    examName: "GSSSB VMC Junior Clerk 2023",
+    question: "એક વેપારી એક વસ્તુ 15% નફાથી વેચે છે. જો તેણે તે વસ્તુ 10% ઓછી કિંમતે ખરીદી હોત અને રૂ. 4 ઓછા ભાવે વેચી હોત, તો તેને 25% નફો થાત. વસ્તુની મૂળ કિંમત કેટલી હશે?",
+    options: ["રૂ. 160", "રૂ. 150", "રૂ. 140", "રૂ. 180"],
+    correct: 0,
+    explanation: "ધારો કે મૂળ કિંમત (CP) = 100x. નફા સાથે વેચાણ કિંમત (SP) = 115x.\nનવી CP = 100x ના 10% ઓછા = 90x.\nનવો નફો = 25%. નવી SP = 90x + (90x ના 25%) = 90x + 22.5x = 112.5x.\nતફાવત = 115x - 112.5x = 2.5x.\n2.5x = રૂ. 4, માટે x = 4 / 2.5 = 1.6.\nમૂળ કિંમત 100x = 100 * 1.6 = રૂ. 160. (સાચો જવાબ: A)"
+  },
+  {
+    id: 5,
+    subject: "કમ્પ્યુટર",
+    examName: "GSSSB VMC Junior Clerk 2023",
+    question: "MS Excel માં કોઈ સેલમાં રહેલી માહિતીને એડિટ (Edit) કરવા માટે કઈ ફંક્શન કીનો ઉપયોગ થાય છે?",
+    options: ["F1", "F2", "F3", "F4"],
+    correct: 1,
+    explanation: "MS Excel માં પસંદ કરેલ સેલને એડિટિંગ મોડમાં લાવવા માટે F2 શોર્ટકટ કીનો ઉપયોગ થાય છે. F1 હેલ્પ માટે વપરાય છે. (સાચો જવાબ: B - F2)"
+  },
+  {
+    id: 6,
+    subject: "અંગ્રેજી",
+    examName: "GSSSB Bin Sachivalay Clerk 2022",
+    question: "Change the voice: 'They are building a house.'",
+    options: ["A house is being built by them.", "A house was being built by them.", "A house is built by them.", "A house has been built by them."],
+    correct: 0,
+    explanation: "વાક્ય Present Continuous Tense માં છે (are building). તેનું Passive Voice ફોર્મેટ 'is/are/am + being + V3' બને છે. તેથી 'A house is being built by them' સાચો જવાબ છે. (સાચો જવાબ: A)"
+  },
+  {
+    id: 7,
+    subject: "ગુજરાતી સાહિત્ય",
+    examName: "GSSSB Bin Sachivalay Clerk 2022",
+    question: "'જય જય ગરવી ગુજરાત' કાવ્યના રચયિતા કોણ છે?",
+    options: ["નર્મદ", "દલપતરામ", "ઝવેરચંદ મેઘાણી", "ઉમાશંકર જોશી"],
+    correct: 0,
+    explanation: "ગુજરાતનું રાજ્ય ગીત 'જય જય ગરવી ગુજરાત' ની રચના વીર નર્મદ દ્વારા કરવામાં આવી છે. તેઓ સુરતના વતની હતા. (સાચો જવાબ: A - નર્મદ)"
+  },
+  {
+    id: 8,
+    subject: "જાહેર વહીવટ / બંધારણ",
+    examName: "GSSSB Senior Clerk 2021",
+    question: "માહિતી અધિકાર અધિનિયમ (RTI - Right to Information Act) કયા વર્ષમાં અમલમાં આવ્યો?",
+    options: ["2004", "2005", "2006", "2009"],
+    correct: 1,
+    explanation: "RTI (માહિતીનો અધિકાર) એક્ટ 12 ઓક્ટોબર 2005 ના રોજ સમગ્ર ભારતમાં (જમ્મુ-કાશ્મીર સિવાય) અમલમાં આવ્યો હતો. (સાચો જવાબ: B - 2005)"
+  },
+  {
+    id: 9,
+    subject: "ભૂગોળ",
+    examName: "GPSSB Junior Clerk 2023",
+    question: "ગુજરાતનો કયો જિલ્લો સૌથી લાંબો દરિયાકિનારો ધરાવે છે?",
+    options: ["પોરબંદર", "જામનગર", "કચ્છ", "ગીર સોમનાથ"],
+    correct: 2,
+    explanation: "ગુજરાતને કુલ 1600 કિમી લાંબો દરિયાકિનારો મળ્યો છે, જે પૈકી એકલો કચ્છ જિલ્લો સૌથી વધુ 406 કિમી લાંબો દરિયાકિનારો ધરાવે છે. (સાચો જવાબ: C - કચ્છ)"
+  },
+  {
+    id: 10,
+    subject: "ગુજરાતી વ્યાકરણ",
+    examName: "GSSSB VMC Junior Clerk 2023",
+    question: "'આકાશ' શબ્દનો સમાનાર્થી શબ્દ વિકલ્પોમાંથી શોધો.",
+    options: ["અવનિ", "ગગન", "સાગર", "પાવક"],
+    correct: 1,
+    explanation: "આકાશ શબ્દના સમાનાર્થી શબ્દો ગગન, નભ, આસમાન, અંબર વગેરે થાય છે. 'અવનિ' એટલે પૃથ્વી અને 'પાવક' એટલે અગ્નિ થાય છે. (સાચો જવાબ: B - ગગન)"
+  }
+];
+
+if (typeof module !== 'undefined') {
+  module.exports = { gsssbClerk2022Data, gsssbSrClerk2021Data, recentExamsData };
+}
