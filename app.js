@@ -843,39 +843,52 @@ function applyTheme() {
 
 function renderSidebar() {
     const nav = document.getElementById('sidebarNav');
-    nav.innerHTML = `
-        <button class="sidebar-nav-item active" onclick="showDashboard()" data-view="dashboard">
-            <span class="nav-item-icon">🏠</span>
-            <span>ડેશબોર્ડ</span>
-        </button>
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-            📖 વિષયવાર નોટ્સ
-        </div>
-        ${coreSubjects.map(s => `
-            <button class="sidebar-nav-item" onclick="openSubject('${s.id}')" data-subject="${s.id}">
-                <span class="nav-item-icon">${s.icon}</span>
-                <span>${s.name}</span>
-                <span class="nav-item-badge">${s.getData().length}</span>
+    if (!nav) return;
+    try {
+        nav.innerHTML = `
+            <button class="sidebar-nav-item active" onclick="showDashboard()" data-view="dashboard">
+                <span class="nav-item-icon">🏠</span>
+                <span>ડેશબોર્ડ</span>
             </button>
-        `).join('')}
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--danger); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-            ⚡ CBT Mock Tests
-        </div>
-        ${mockTestPapers.map(s => `
-            <button class="sidebar-nav-item" onclick="startCbtExam('${s.id}', 180);" data-subject="${s.id}">
-                <span class="nav-item-icon">${s.icon}</span>
-                <span>${s.name}</span>
-                <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                📖 વિષયવાર નોટ્સ
+            </div>
+            ${coreSubjects.map(s => {
+                let count = 0;
+                try { count = (s.getData() || []).length; } catch (e) { count = 0; }
+                return `
+                    <button class="sidebar-nav-item" onclick="openSubject('${s.id}')" data-subject="${s.id}">
+                        <span class="nav-item-icon">${s.icon}</span>
+                        <span>${s.name}</span>
+                        <span class="nav-item-badge">${count}</span>
+                    </button>
+                `;
+            }).join('')}
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--danger); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                ⚡ CBT Mock Tests
+            </div>
+            ${mockTestPapers.map(s => {
+                let count = 0;
+                try { count = (s.getData() || []).length; } catch (e) { count = 0; }
+                return `
+                    <button class="sidebar-nav-item" onclick="startCbtExam('${s.id}', 180);" data-subject="${s.id}">
+                        <span class="nav-item-icon">${s.icon}</span>
+                        <span>${s.name}</span>
+                        <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+                    </button>
+                `;
+            }).join('')}
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                📅 અભ્યાસ યોજના
+            </div>
+            <button class="sidebar-nav-item" onclick="showPlanView()" data-view="plan">
+                <span class="nav-item-icon">📅</span>
+                <span>30-દિવસ યોજના</span>
             </button>
-        `).join('')}
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-            📅 અભ્યાસ યોજના
-        </div>
-        <button class="sidebar-nav-item" onclick="showPlanView()" data-view="plan">
-            <span class="nav-item-icon">📅</span>
-            <span>30-દિવસ યોજના</span>
-        </button>
-    `;
+        `;
+    } catch (err) {
+        console.error('renderSidebar error:', err);
+    }
 }
 
 function renderDashboard() {
@@ -1049,36 +1062,49 @@ function showDashboard() {
 }
 
 function openSubject(subjectId) {
-    const subject = subjects.find(s => s.id === subjectId);
-    if (!subject) return;
+    try {
+        const subject = subjects.find(s => s.id === subjectId) || coreSubjects.find(s => s.id === subjectId);
+        if (!subject) return;
 
-    state.currentSubject = subjectId;
-    const data = subject.getData();
-    const completed = getCompletedCount(subjectId);
-    const percent = data.length > 0 ? Math.round((completed / data.length) * 100) : 0;
+        state.currentSubject = subjectId;
+        let data = [];
+        try { data = subject.getData() || []; } catch(e) { data = []; }
+        
+        const completed = getCompletedCount(subjectId);
+        const percent = data.length > 0 ? Math.round((completed / data.length) * 100) : 0;
 
-    document.getElementById('subjectTitle').textContent = `${subject.icon} ${subject.name}`;
-    document.getElementById('subjectProgressBar').style.width = percent + '%';
-    document.getElementById('subjectProgressText').textContent = `${completed}/${data.length} ટૉપિક્સ પૂર્ણ (${percent}%)`;
+        const titleEl = document.getElementById('subjectTitle');
+        if (titleEl) titleEl.textContent = `${subject.icon} ${subject.name}`;
 
-    const listEl = document.getElementById('topicList');
-    listEl.innerHTML = data.map((t, i) => {
-        const isCompleted = state.completedTopics[subjectId]?.[i];
-        return `
-            <div class="topic-item ${isCompleted ? 'completed' : ''} animate-in" 
-                 onclick="openTopic(${i})" style="animation-delay: ${i * 0.04}s">
-                <span class="topic-item-number">${isCompleted ? '✓' : i + 1}</span>
-                <div class="topic-item-info">
-                    <div class="topic-item-title">${t.topic}</div>
-                    <div class="topic-item-meta">${t.keyPoints?.length || 0} મુખ્ય મુદ્દાઓ</div>
-                </div>
-                <span class="topic-item-arrow">→</span>
-            </div>
-        `;
-    }).join('');
+        const barEl = document.getElementById('subjectProgressBar');
+        if (barEl) barEl.style.width = percent + '%';
 
-    switchView('subject');
-    closeSidebar();
+        const txtEl = document.getElementById('subjectProgressText');
+        if (txtEl) txtEl.textContent = `${completed}/${data.length} ટૉપિક્સ પૂર્ણ (${percent}%)`;
+
+        const listEl = document.getElementById('topicList');
+        if (listEl) {
+            listEl.innerHTML = data.map((t, i) => {
+                const isCompleted = state.completedTopics[subjectId]?.[i];
+                return `
+                    <div class="topic-item ${isCompleted ? 'completed' : ''} animate-in" 
+                         onclick="openTopic(${i})" style="animation-delay: ${i * 0.04}s">
+                        <span class="topic-item-number">${isCompleted ? '✓' : i + 1}</span>
+                        <div class="topic-item-info">
+                            <div class="topic-item-title">${t.topic}</div>
+                            <div class="topic-item-meta">${t.keyPoints?.length || 0} મુખ્ય મુદ્દાઓ</div>
+                        </div>
+                        <span class="topic-item-arrow">→</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        switchView('subject');
+        closeSidebar();
+    } catch (err) {
+        console.error("openSubject error:", err);
+    }
 }
 
 function openTopic(index) {
