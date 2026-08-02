@@ -3057,3 +3057,6 @@ function generateTopicDoubtSolution(topicName, query, subjectId) {
 // ===========================
 
 document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    try { init(); } catch (e) { console.error('Immediate init error:', e); }
+}

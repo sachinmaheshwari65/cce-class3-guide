@@ -552,8 +552,17 @@
     <script src="data-previousyears.js?v=2026"></script>
     <script src="data-cce2024pattern.js?v=2026"></script>
     <script src="data-ccecourse.js?v=2026"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
     <script src="app.js?v=2026"></script>
+    
+    <!-- Non-blocking optional PDF analyzer CDN scripts -->
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+
+    <!-- Fail-safe App Initializer -->
+    <script>
+        if (typeof init === 'function') {
+            try { init(); } catch(e) { console.error('Immediate init error:', e); }
+        }
+    </script>
 </body>
 </html>
