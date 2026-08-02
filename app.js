@@ -2453,12 +2453,271 @@ function startErrorBookPractice() {
     cbtState.markedForReview = new Array(errorBook.length).fill(false);
     cbtState.title = "⚠️ AI Error Book રી-ટેસ્ટ & રિવિઝન";
     cbtState.duration = errorBook.length * 60;
-    cbtState.timeRemaining = cbtState.duration;
+        cbtState.timeRemaining = cbtState.duration;
 
     document.getElementById('cbtExamTitle').innerText = cbtState.title;
     showView('cbtExamView');
     renderCbtQuestion();
-    renderCbtPalette();
+}
+
+/* ============================================================
+   CCE MASTER EXAM CRACK HUB & FULL COURSE ENGINE
+   ============================================================ */
+
+function showCrackHubView() {
+    showView('crackHubView');
+    renderCrackHub();
+}
+
+function renderCrackHub() {
+    const container = document.getElementById('crackHubContent');
+    if (!container) return;
+
+    const savedTarget = localStorage.getItem('cce_target_cutoff') || 110;
+    const modules = typeof cceCourseModulesData !== 'undefined' ? cceCourseModulesData : [];
+    const strategy = typeof cceExamCrackStrategy !== 'undefined' ? cceExamCrackStrategy : { pillars: [], flashcards: [] };
+
+    let html = `
+      <!-- Hero Overview -->
+      <div style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(16,185,129,0.15)); border: 1px solid var(--accent); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem; box-shadow: var(--shadow);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span style="background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid #f59e0b; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">🔥 Master Exam Strategy 2026</span>
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0; color: var(--accent-light);">CCE Class-3 Crack Engine & 55 PDF Full Course</h3>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;">
+              CCE 210 ગુણમાંથી <strong>110+ Cutoff Marks</strong> મેળવવાની 4-સ્તરીય સફળતા રણનીતિ, 55 PDF સ્તરીય કોર્સ મોડ્યુલ્સ અને 170+ પબ્લિકેશન નોટ્સ!
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <div style="background: var(--bg-card); padding: 0.75rem 1.25rem; border-radius: 12px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-light);">55 PDF</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Full Course Modules</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.75rem 1.25rem; border-radius: 12px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;">90+ Qs</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Official CCE PYQs</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 0.75rem 1.25rem; border-radius: 12px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 1.4rem; font-weight: 800; color: #f59e0b;">210 Marks</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Total Exam Weightage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 1: Interactive Target Cutoff Calculator -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+        <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          📊 🎯 CCE Cutoff & Marks Target Calculator (ઇન્ટરેક્ટિવ લક્ષ્યાંક કેલ્ક્યુલેટર)
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; align-items: center;">
+          <div>
+            <label style="display: block; font-weight: bold; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              તમારો લક્ષ્યાંક સ્કોર (Target Cutoff Score): <span id="targetScoreDisplay" style="color: var(--accent-light); font-size: 1.2rem; font-weight: 800;">${savedTarget}</span> / 210
+            </label>
+            <input type="range" id="cutoffRangeInput" min="80" max="160" value="${savedTarget}" step="5" 
+                   style="width: 100%; height: 8px; accent-color: var(--accent); cursor: pointer;" 
+                   oninput="updateCalculatorTarget(this.value)">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+              <span>80 (Safe)</span>
+              <span>110 (Target Cutoff)</span>
+              <span>140+ (Top Rank)</span>
+            </div>
+          </div>
+          <div id="calculatorBreakdown" style="background: var(--bg-surface); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: 4-Pillar Master Exam Crack Formula -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+        <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin-bottom: 1rem;">
+          ⚡ 4-Pillar Master Exam Crack Cheat Sheets (માસ્ટર શોર્ટકટ્સ & નિયમો)
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+          <div style="background: rgba(99,102,241,0.08); border-left: 4px solid #6366f1; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #6366f1; font-size: 1rem;">🧠 1. રીઝનિંગ (60 Marks - Highest)</strong>
+            <ul style="padding-left: 1.1rem; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-primary);">
+              <li><strong>EJOTY:</strong> E=5, J=10, O=15, T=20, Y=25.</li>
+              <li><strong>Opposites:</strong> A-Z (Azad), B-Y (Boy), C-X (Crux), D-W (Dew). Sum = 27.</li>
+              <li><strong>Clock Angle:</strong> |30H - 5.5M|.</li>
+              <li><strong>Family Tree:</strong> [+] Male, (-) Female, <=> Couple, --- Sibling.</li>
+            </ul>
+          </div>
+          <div style="background: rgba(16,185,129,0.08); border-left: 4px solid #10b981; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #10b981; font-size: 1rem;">📐 2. ગણિત (30 Marks - Speed Math)</strong>
+            <ul style="padding-left: 1.1rem; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-primary);">
+              <li><strong>Percentages:</strong> 1/8 = 12.5%, 1/6 = 16.66%, 1/7 = 14.28%.</li>
+              <li><strong>Algebra:</strong> x + 1/x = k ⇒ x² + 1/x² = k² - 2.</li>
+              <li><strong>Divisibility:</strong> 3 & 9 = Sum of digits | 11 = Alt difference 0/11.</li>
+              <li><strong>SI vs CI 2 Yr Diff:</strong> P × (R/100)².</li>
+            </ul>
+          </div>
+          <div style="background: rgba(236,72,153,0.08); border-left: 4px solid #ec4899; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #ec4899; font-size: 1rem;">📝 3. English (15 Marks)</strong>
+            <ul style="padding-left: 1.1rem; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-primary);">
+              <li><strong>Articles:</strong> An European (X) → A European (Y sound). An hour (Correct).</li>
+              <li><strong>Since vs For:</strong> Since = Point of time | For = Period of time.</li>
+              <li><strong>Passive:</strong> Cont. = BEING + V3 | Perf. = BEEN + V3.</li>
+              <li><strong>Speech:</strong> Today → That day | Yesterday → Previous day.</li>
+            </ul>
+          </div>
+          <div style="background: rgba(245,158,11,0.08); border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #f59e0b; font-size: 1rem;">🗣️ 4. ગુજરાતી & GS (105 Marks)</strong>
+            <ul style="padding-left: 1.1rem; margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-primary);">
+              <li><strong>ધોળાવીરા:</strong> 3 ભાગ નગર, 10 અક્ષરોનું સાઈનબોર્ડ (UNESCO 2021).</li>
+              <li><strong>લોથલ:</strong> વિશ્વનું સૌથી જૂનું કૃત્રિમ ગોદી (Dockyard).</li>
+              <li><strong>42મો સુધારો:</strong> સમાજવાદી, બિનસાંપ્રદાયિક, અખંડિતતા.</li>
+              <li><strong>પંચાયતી રાજ:</strong> 73મો સુધારો, ભાગ 9, 29 વિષયો.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Rapid Memory Flashcards -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+          <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin: 0;">
+            💡 Rapid Memory Recall Flashcards (ઝડપી યાદશક્તિ કાર્ડ્સ)
+          </h4>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">કાર્ડ પર ક્લિક કરો ઉત્તર/ટ્રિક જોવા માટે</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+          ${strategy.flashcards.map((card, idx) => `
+            <div id="flashcard-${idx}" class="flashcard-container" onclick="flipFlashcard(${idx})"
+                 style="background: var(--bg-surface); border: 1px solid var(--accent); padding: 1.25rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              <div>
+                <span style="font-size: 0.7rem; font-weight: bold; background: var(--accent-glow); color: var(--accent-light); padding: 2px 8px; border-radius: 10px; text-transform: uppercase;">${card.category}</span>
+                <div id="flashcard-text-${idx}" style="font-weight: 700; margin-top: 0.75rem; font-size: 0.95rem; color: var(--text-primary); line-height: 1.5;">
+                  ❓ ${card.q}
+                </div>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--accent-light); margin-top: 0.75rem; font-weight: bold; text-align: right;">
+                🔄 ક્લિક કરો જવાબ જોવા
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Section 4: 55 PDF Full Course Modules Hub -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin: 0;">
+              📂 55 Full Course PDF Modules Hub (89.78 MB સંગ્રહ)
+            </h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.25rem 0 0 0;">
+              CCE પરીક્ષાની વિષયવાર સંપૂર્ણ પીડીએફ નોટ્સ અને રિવિઝન મોડ્યુલ્સ.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button onclick="filterCourseCategory('all')" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 15px; border: 1px solid var(--accent); background: var(--accent); color: white; cursor: pointer;">All (55 PDFs)</button>
+            <button onclick="filterCourseCategory('Reasoning')" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 15px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-primary); cursor: pointer;">Reasoning</button>
+            <button onclick="filterCourseCategory('Mathematics')" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 15px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-primary); cursor: pointer;">Maths</button>
+            <button onclick="filterCourseCategory('English')" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 15px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-primary); cursor: pointer;">English</button>
+            <button onclick="filterCourseCategory('Gujarati')" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 15px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-primary); cursor: pointer;">Gujarati</button>
+          </div>
+        </div>
+        
+        <div id="courseModulesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          ${modules.map(mod => `
+            <div class="course-module-card" data-category="${mod.category}" 
+                 style="background: var(--bg-surface); border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.75rem; font-weight: bold; background: rgba(99,102,241,0.15); color: var(--accent-light); padding: 3px 10px; border-radius: 12px;">${mod.subject}</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold;">📁 ${mod.fileSize}</span>
+                </div>
+                <h5 style="font-size: 1rem; font-weight: 800; margin: 0.5rem 0; color: var(--text-primary);">${mod.title}</h5>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">${mod.description}</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                  ${mod.topics.map(t => `<span style="font-size: 0.7rem; background: var(--bg-card); color: var(--text-muted); padding: 2px 8px; border-radius: 8px; border: 1px solid var(--border);"># ${t}</span>`).join('')}
+                </div>
+              </div>
+              <div style="margin-top: 1rem; pt-0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.75rem; color: #10b981; font-weight: bold;">✅ Verified PDF Course</span>
+                <button onclick="showToast('📄 ${mod.title} નો અભ્યાસ શરૂ થાય છે!')" 
+                        style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                  📖 વાંચો / Study
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
+    updateCalculatorTarget(savedTarget);
+}
+
+function updateCalculatorTarget(val) {
+    localStorage.setItem('cce_target_cutoff', val);
+    const display = document.getElementById('targetScoreDisplay');
+    if (display) display.innerText = val;
+
+    const breakdown = document.getElementById('calculatorBreakdown');
+    if (!breakdown) return;
+
+    const targetNum = parseInt(val);
+    const reasoningTarget = Math.min(60, Math.round(targetNum * 0.45));
+    const mathTarget = Math.min(30, Math.round(targetNum * 0.22));
+    const englishTarget = Math.min(15, Math.round(targetNum * 0.11));
+    const gujaratiTarget = Math.min(15, Math.round(targetNum * 0.12));
+    const gkTarget = Math.max(0, targetNum - (reasoningTarget + mathTarget + englishTarget + gujaratiTarget));
+
+    breakdown.innerHTML = `
+        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem; color: var(--accent-light);">
+          🎯 લક્ષ્યાંક મેળવવા વિષયવાર જરૂરી ગુણ:
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.25rem;">
+          <span>🧠 રીઝનિંગ (60 માર્ક્સ):</span> <strong>${reasoningTarget} / 60</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.25rem;">
+          <span>📐 ગણિત (30 માર્ક્સ):</span> <strong>${mathTarget} / 30</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.25rem;">
+          <span>📝 અંગ્રેજી (15 માર્ક્સ):</span> <strong>${englishTarget} / 15</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.25rem;">
+          <span>🗣️ ગુજરાતી (15 માર્ક્સ):</span> <strong>${gujaratiTarget} / 15</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+          <span>📚 GS/ઈતિહાસ/ભૂગોળ:</span> <strong>${gkTarget} / 90</strong>
+        </div>
+    `;
+}
+
+function flipFlashcard(idx) {
+    const cardText = document.getElementById(`flashcard-text-${idx}`);
+    if (!cardText) return;
+
+    const strategy = typeof cceExamCrackStrategy !== 'undefined' ? cceExamCrackStrategy : { flashcards: [] };
+    const card = strategy.flashcards[idx];
+    if (!card) return;
+
+    if (cardText.dataset.flipped === 'true') {
+        cardText.innerHTML = `❓ ${card.q}`;
+        cardText.dataset.flipped = 'false';
+    } else {
+        cardText.innerHTML = `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${card.a}`;
+        cardText.dataset.flipped = 'true';
+    }
+}
+
+function filterCourseCategory(cat) {
+    const cards = document.querySelectorAll('.course-module-card');
+    cards.forEach(card => {
+        if (cat === 'all' || card.dataset.category === cat) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    showToast(`📂 દર્શાવી રહ્યા છીએ: ${cat === 'all' ? 'તમામ PDF મોડ્યુલ્સ' : cat}`);
+}    renderCbtPalette();
     startCbtTimer();
 }
 

@@ -53,6 +53,11 @@
                            style="padding: 0.4rem 0.8rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-primary); font-size: 0.85rem; width: 180px; transition: all 0.3s ease;"
                            onkeyup="handleGlobalSearch(event)" />
                 </div>
+                <button class="cbt-btn-nav" 
+                        style="padding: 0.4rem 0.9rem; font-size: 0.85rem; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border-radius: 20px; box-shadow: 0 2px 8px rgba(245,158,11,0.4); font-weight: 800;"
+                        onclick="showCrackHubView()">
+                    🔥 CCE Crack Hub
+                </button>
                 <button class="cbt-btn-nav cbt-btn-submit" 
                         style="padding: 0.4rem 0.9rem; font-size: 0.85rem; background: linear-gradient(135deg, #e11d48, #be123c); color: white; border-radius: 20px; box-shadow: 0 2px 8px rgba(225,29,72,0.4);"
                         onclick="startCbtExam('mocktest1', 180)">
@@ -420,6 +425,25 @@
                     <!-- Dynamic Error Book Questions -->
                 </div>
             </section>
+
+            <!-- CCE Master Crack Hub & Full Course View -->
+            <section id="crackHubView" class="view">
+                <div class="plan-header" style="justify-content: space-between; border-bottom: 2px solid var(--accent); padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <span>←</span> પાછા જાઓ
+                    </button>
+                    <h2 style="font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #f59e0b, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        🚀 CCE Master Exam Crack Hub & Full Course Engine
+                    </h2>
+                    <button class="cbt-btn-nav cbt-btn-submit" onclick="startCbtExam('mocktest1', 180)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.5rem 1.25rem; font-weight: 800;">
+                        🎯 180 Min CBT Mock Test આપો →
+                    </button>
+                </div>
+
+                <div id="crackHubContent">
+                    <!-- Rendered dynamically by renderCrackHub() in app.js -->
+                </div>
+            </section>
         </main>
 
         <!-- Bottom Nav (Mobile) -->
@@ -508,6 +532,7 @@
     <script src="data-mocktest1.js?v=2026"></script>
     <script src="data-previousyears.js?v=2026"></script>
     <script src="data-cce2024pattern.js?v=2026"></script>
+    <script src="data-ccecourse.js?v=2026"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
     <script src="app.js?v=2026"></script>
