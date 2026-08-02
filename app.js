@@ -2638,11 +2638,11 @@ function renderCrackHub() {
                   ${mod.topics.map(t => `<span style="font-size: 0.7rem; background: var(--bg-card); color: var(--text-muted); padding: 2px 8px; border-radius: 8px; border: 1px solid var(--border);"># ${t}</span>`).join('')}
                 </div>
               </div>
-              <div style="margin-top: 1rem; pt-0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.75rem; color: #10b981; font-weight: bold;">✅ Verified PDF Course</span>
-                <button onclick="showToast('📄 ${mod.title} નો અભ્યાસ શરૂ થાય છે!')" 
-                        style="padding: 0.35rem 0.85rem; font-size: 0.8rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                  📖 વાંચો / Study
+              <div style="margin-top: 1rem; pt-0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+                <span style="font-size: 0.75rem; color: #10b981; font-weight: bold;">✅ Verified PDF & Interactive Course</span>
+                <button onclick="openSubject('${mod.subjectId}')" 
+                        style="padding: 0.45rem 1.1rem; font-size: 0.85rem; background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px rgba(99,102,241,0.3);">
+                  📖 વાંચો / Study →
                 </button>
               </div>
             </div>
