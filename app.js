@@ -2458,6 +2458,8 @@ function startErrorBookPractice() {
     document.getElementById('cbtExamTitle').innerText = cbtState.title;
     showView('cbtExamView');
     renderCbtQuestion();
+    renderCbtPalette();
+    startCbtTimer();
 }
 
 /* ============================================================
@@ -2717,8 +2719,6 @@ function filterCourseCategory(cat) {
         }
     });
     showToast(`📂 દર્શાવી રહ્યા છીએ: ${cat === 'all' ? 'તમામ PDF મોડ્યુલ્સ' : cat}`);
-}    renderCbtPalette();
-    startCbtTimer();
 }
 
 // ===========================
