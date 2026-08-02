@@ -1104,6 +1104,48 @@ function openTopic(index) {
         html += `<div class="mnemonic">${topic.mnemonics}</div>`;
     }
 
+    // Chapter-specific Q&A & Quiz Trigger Section (STRICTLY NO MIXING)
+    const chapterQs = getChapterQuestions(topic);
+    html += `
+        <div style="margin-top: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+                <div>
+                    <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--accent-light); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        📝 ${topic.topic} - સ્વાધ્યાય & પરીક્ષાલક્ષી Q&A (${chapterQs.length} પ્રશ્નો)
+                    </h4>
+                    <span style="font-size: 0.8rem; color: #10b981; font-weight: bold;">🔒 100% Chapter-Specific Data (Zero Mix Logic)</span>
+                </div>
+                <button onclick="startChapterQuiz(${index})" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3);">
+                    🎯 આ જ ચેપ્ટરની ક્વિઝ આપો (${chapterQs.length} Qs) →
+                </button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                ${chapterQs.map((q, qIdx) => `
+                    <div style="background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                            પ્રશ્ન ${qIdx + 1}: ${q.question}
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem;">
+                            ${q.options.map((opt, optIdx) => `
+                                <div style="font-size: 0.85rem; padding: 0.4rem 0.75rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary);">
+                                    <strong>${String.fromCharCode(65 + optIdx)})</strong> ${opt}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <details style="font-size: 0.85rem; color: var(--accent-light); cursor: pointer;">
+                            <summary style="font-weight: bold;">💡 ઉત્તર અને સમજૂતી જુઓ</summary>
+                            <div style="margin-top: 0.5rem; padding: 0.75rem; background: var(--bg-card); border-left: 3px solid #10b981; border-radius: 4px; color: var(--text-primary);">
+                                <strong>સાચો ઉત્તર:</strong> વિકલ્પ ${String.fromCharCode(65 + q.correct)}<br>
+                                <strong>સમજૂતી:</strong> ${q.explanation || 'પાઠ્યપુસ્તક નિયમ મુજબ.'}
+                            </div>
+                        </details>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
     // Interactive AI Doubt Solver & Textbook Solution Box
     html += `
         <div style="margin-top: 2rem; background: var(--bg-card); border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow);">
@@ -1189,8 +1231,78 @@ let quizState = {
     questions: [],
     currentIndex: 0,
     score: 0,
-    answered: false
+    answered: false,
+    chapterTitle: ''
 };
+
+function getChapterQuestions(topic) {
+    if (topic && topic.questions && topic.questions.length > 0) {
+        return topic.questions;
+    }
+
+    const questions = [];
+    if (!topic || !topic.keyPoints) return questions;
+
+    topic.keyPoints.forEach((point, pIdx) => {
+        if (point.length < 8) return;
+
+        let qText = `પ્રશ્ન: ${topic.topic} સંબંધિત નીચેનામાંથી કયું વિધાન સાચું છે?`;
+        if (point.includes('એટલે') || point.includes('કહેવાય') || point.includes('થાય') || point.includes('હશે')) {
+            qText = `${topic.topic}: "${point.split('(')[0]}" વિશે શું સાચું છે?`;
+        }
+
+        const options = [
+            point,
+            `આ વિધાન સંગત નથી.`,
+            `ઉપરોક્ત પૈકી એક પણ નહીં.`,
+            `વિધાન A અને B બંને સાચા છે.`
+        ];
+
+        questions.push({
+            question: qText,
+            options: options,
+            correct: 0,
+            explanation: `પાઠ્યપુસ્તક તથ્ય: ${point}`
+        });
+    });
+
+    return questions.slice(0, 10);
+}
+
+function startChapterQuiz(topicIdx) {
+    const subject = subjects.find(s => s.id === state.currentSubject);
+    if (!subject) return;
+
+    const data = subject.getData();
+    if (topicIdx >= data.length) return;
+
+    const topic = data[topicIdx];
+    const chapterQs = getChapterQuestions(topic);
+
+    if (chapterQs.length === 0) {
+        showToast('❌ આ ચેપ્ટર માટે પ્રશ્નો મળ્યા નથી');
+        return;
+    }
+
+    quizState.questions = chapterQs;
+    quizState.currentIndex = 0;
+    quizState.score = 0;
+    quizState.answered = false;
+    quizState.chapterTitle = topic.topic;
+
+    document.getElementById('quizTotal').textContent = quizState.questions.length;
+    const titleEl = document.querySelector('.quiz-header h2');
+    if (titleEl) titleEl.innerText = `🎯 ${topic.topic} (Chapter Quiz)`;
+
+    const resultEl = document.getElementById('quizResult');
+    if (resultEl) resultEl.classList.add('hidden');
+    const contentEl = document.getElementById('quizContent');
+    if (contentEl) contentEl.classList.remove('hidden');
+
+    renderQuizQuestion();
+    switchView('quiz');
+    showToast(`🎯 ${topic.topic} ના પ્રશ્નોની ક્વિઝ શરૂ થઈ! (Zero Cross Mix)`);
+}
 
 function startQuiz() {
     const subject = subjects.find(s => s.id === state.currentSubject);
