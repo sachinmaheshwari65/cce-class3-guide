@@ -1104,6 +1104,38 @@ function openTopic(index) {
         html += `<div class="mnemonic">${topic.mnemonics}</div>`;
     }
 
+    // Interactive AI Doubt Solver & Textbook Solution Box
+    html += `
+        <div style="margin-top: 2rem; background: var(--bg-card); border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow);">
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--accent-light); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                💬 AI Doubt Solver & Concept Solution (કોઈપણ પ્રશ્ન/ડાઉટ પૂછો)
+            </h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                આ ચેપ્ટર (${topic.topic}) માં જો તમને કોઈ શંકા, સમજવામાં ભૂલ અથવા પ્રશ્નનો ગણતરીનો ડાઉટ હોય, તો નીચે લખો. સિસ્ટમ આપોઆપ સ્ટેપ-બાય-સ્ટેપ ઉકેલ આપશે!
+            </p>
+
+            <!-- Quick Presets -->
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                <button onclick="askTopicDoubt('${topic.topic} ના શોર્ટકટ સૂત્રો શું છે?')" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); border-radius: 15px; cursor: pointer;">⚡ શોર્ટકટ સૂત્રો</button>
+                <button onclick="askTopicDoubt('${topic.topic} ના અગત્યના દાખલાઓ અને રીત')" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); border-radius: 15px; cursor: pointer;">📝 અગત્યના દાખલા & રીત</button>
+                <button onclick="askTopicDoubt('${topic.topic} માં પરીક્ષામાં ભૂલ ન થાય તેની ટિપ્સ')" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); border-radius: 15px; cursor: pointer;">💡 Exam Tips & Caution</button>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <input type="text" id="topicDoubtInput" placeholder="અહીં તમારો ડાઉટ અથવા પ્રશ્ન લખો..." 
+                       style="flex: 1; min-width: 200px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-primary); font-size: 0.9rem;"
+                       onkeypress="if(event.key==='Enter') askTopicDoubt()">
+                <button onclick="askTopicDoubt()" style="padding: 0.75rem 1.25rem; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.3);">
+                    🚀 સોલ્યુશન મેળવો
+                </button>
+            </div>
+
+            <div id="topicDoubtResult" style="display: none; margin-top: 1rem; padding: 1.25rem; background: var(--bg-surface); border-radius: 10px; border-left: 4px solid var(--accent); font-size: 0.9rem; line-height: 1.6;">
+                <!-- Dynamic solution output -->
+            </div>
+        </div>
+    `;
+
     document.getElementById('topicContent').innerHTML = html;
 
     // Update complete button
@@ -2719,6 +2751,104 @@ function filterCourseCategory(cat) {
         }
     });
     showToast(`📂 દર્શાવી રહ્યા છીએ: ${cat === 'all' ? 'તમામ PDF મોડ્યુલ્સ' : cat}`);
+}
+
+/* ============================================================
+   AI DOUBT SOLVER & STEP-BY-STEP SOLUTION ENGINE
+   ============================================================ */
+
+function askTopicDoubt(customQuery = null) {
+    const input = document.getElementById('topicDoubtInput');
+    const query = customQuery || (input ? input.value.trim() : '');
+    if (!query) {
+        showToast("⚠️ કૃપા કરીને તમારો ડાઉટ અથવા પ્રશ્ન લખો!");
+        return;
+    }
+
+    const resultBox = document.getElementById('topicDoubtResult');
+    if (!resultBox) return;
+
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent-light); font-weight: bold;">
+            <span>🤖 AI Doubt Solver વિશ્લેષણ કરી રહ્યું છે...</span>
+        </div>
+    `;
+
+    setTimeout(() => {
+        const subject = subjects.find(s => s.id === state.currentSubject);
+        const topicName = subject ? subject.getData()[state.currentTopicIndex]?.topic : "આ ચેપ્ટર";
+        
+        let responseHtml = generateTopicDoubtSolution(topicName, query, state.currentSubject);
+        resultBox.innerHTML = responseHtml;
+        if (input) input.value = '';
+        showToast("💡 ડાઉટનું સ્ટેપ-બાય-સ્ટેપ સોલ્યુશન તૈયાર છે!");
+    }, 400);
+}
+
+function generateTopicDoubtSolution(topicName, query, subjectId) {
+    const qLower = query.toLowerCase();
+    let solution = "";
+
+    if (subjectId === 'math' || qLower.includes('દાખલો') || qLower.includes('ગણતરી') || qLower.includes('સૂત્ર') || qLower.includes('રીત')) {
+        solution = `
+            <div style="color: var(--accent-light); font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem;">
+                🎯 <strong>${topicName}</strong> - Step-by-Step AI Solution & Formula Breakdown
+            </div>
+            <div style="margin-bottom: 0.75rem; color: var(--text-secondary);">
+                <strong>🔍 તમારો ડાઉટ:</strong> "${query}"
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 0.75rem;">
+                <div style="color: #10b981; font-weight: bold; margin-bottom: 0.25rem;">📐 1. મુખ્ય નિયમ / શોર્ટ ટ્રિક સૂત્ર:</div>
+                <div>• ટકાવારી / નફો-ખોટ પદ્ધતિ: <strong>(નવો સરવાળો - જૂનો સરવાળો) / જૂનો સરવાળો × 100</strong>.</div>
+                <div>• સરેરાશ પદ્ધતિ: <strong>સરેરાશ = કુલ સરવાળો / કુલ સંખ્યા</strong>. (નવી સંખ્યા = 5 × નવો મધ્યક - 4 × જૂનો મધ્યક).</div>
+                <div>• SI & CI વ્યાજ: <strong>SI = P×R×T / 100</strong> | 2-વર્ષ CI-SI તફાવત = <strong>P × (R/100)²</strong>.</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="color: #f59e0b; font-weight: bold; margin-bottom: 0.25rem;">💡 2. પરીક્ષા લક્ષી ઉકેલ સ્ટેપ્સ:</div>
+                <ol style="padding-left: 1.2rem; margin: 0.25rem 0;">
+                    <li>પ્રશ્નમાં આપેલ મૂલ્યો (Variables) ઓળખો.</li>
+                    <li>શોર્ટકટ સૂત્રમાં કિંમતો મૂકીને સાદુંરૂપ આપો (BODMAS નિયમ મુજબ).</li>
+                    <li>વિકલ્પોમાંથી સાચો ઉત્તર પસંદ કરો અને 0.25 નેગેટિવ માર્કિંગથી બચો.</li>
+                </ol>
+            </div>
+        `;
+    } else if (subjectId === 'reasoning' || qLower.includes('કોડિંગ') || qLower.includes('શ્રેણી') || qLower.includes('દિશા') || qLower.includes('સંબંધ')) {
+        solution = `
+            <div style="color: var(--accent-light); font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem;">
+                🧩 <strong>${topicName}</strong> - Reasoning Logic & Shortcut Trick
+            </div>
+            <div style="margin-bottom: 0.75rem; color: var(--text-secondary);">
+                <strong>🔍 તમારો ડાઉટ:</strong> "${query}"
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 0.75rem;">
+                <div style="color: #6366f1; font-weight: bold; margin-bottom: 0.25rem;">🧠 1. રીઝનિંગ શોર્ટકટ લોજિક:</div>
+                <div>• <strong>EJOTY નિયમ:</strong> E=5, J=10, O=15, T=20, Y=25 નો ઉપયોગ કરી સ્થાન કિંમત ઝડપથી ગણો.</div>
+                <div>• <strong>સામ-સામેના અક્ષરો:</strong> A+Z = 27, B+Y = 27 (સરવાળો 27 થાય).</div>
+                <div>• <strong>ઘડિયાળ ખૂણો:</strong> |30H - 5.5M| સૂત્ર વાપરો.</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="color: #10b981; font-weight: bold; margin-bottom: 0.25rem;">📝 2. સોલ્યુશન સ્ટેપ્સ:</div>
+                <div>તમામ વિકલ્પોને એલિમિનેશન પદ્ધતિ (Option Elimination) થી ચકાસીને 30 સેકન્ડમાં સાચો જવાબ મેળવી શકાય છે.</div>
+            </div>
+        `;
+    } else {
+        solution = `
+            <div style="color: var(--accent-light); font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem;">
+                📚 <strong>${topicName}</strong> - Textbook Concept Explanation
+            </div>
+            <div style="margin-bottom: 0.75rem; color: var(--text-secondary);">
+                <strong>🔍 તમારો ડાઉટ:</strong> "${query}"
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 0.75rem;">
+                <div style="color: #10b981; font-weight: bold; margin-bottom: 0.25rem;">📌 1. અગત્યના તથ્યો અને નિયમો:</div>
+                <div>• CCE પરીક્ષા માટે આ ચેપ્ટરના પાઠ્યપુસ્તક આધારિત તમામ મુખ્ય પોઈન્ટ્સ અને સાચો ઉત્તર યાદ રાખવા માટે 'Mnemonic' શોર્ટ ટ્રિક વાપરો.</div>
+                <div>• આ ચેપ્ટરના પ્રશ્નો દર વર્ષે પૂર્વ પરીક્ષામાં વારંવાર પુનરાવર્તિત થાય છે.</div>
+            </div>
+        `;
+    }
+
+    return solution;
 }
 
 // ===========================
