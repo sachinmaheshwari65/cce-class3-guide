@@ -1586,11 +1586,12 @@ function showPlanView(planType = '60days') {
 }
 
 function showBookmarks() {
-    showToast('⭐ Bookmarks Coming Soon!');
+    showBookmarksView();
 }
 
 function showStats() {
-    showToast('📊 Statistics Coming Soon!');
+    showDashboard();
+    showToast('📊 તમારું CCE અભ્યાસ પ્રગતિ ચાર્ટ અને આંકડા દર્શાવી રહ્યા છીએ!');
 }
 
 // ===========================
