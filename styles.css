@@ -106,6 +106,8 @@ body {
 .splash-screen.fade-out {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+    display: none !important;
 }
 
 .splash-content {

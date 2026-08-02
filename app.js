@@ -815,17 +815,25 @@ function updateStreak() {
 // ===========================
 
 function init() {
-    loadState();
-    applyTheme();
-    renderSidebar();
-    renderDashboard();
-    bindEvents();
-
-    // Splash screen
-    setTimeout(() => {
-        document.getElementById('splash').classList.add('fade-out');
-        document.getElementById('app').classList.remove('hidden');
-    }, 2200);
+    try {
+        loadState();
+        applyTheme();
+        renderSidebar();
+        renderDashboard();
+        bindEvents();
+    } catch (err) {
+        console.error("Initialization Error:", err);
+    } finally {
+        const splash = document.getElementById('splash');
+        const app = document.getElementById('app');
+        if (splash) {
+            splash.classList.add('fade-out');
+            splash.style.display = 'none';
+        }
+        if (app) {
+            app.classList.remove('hidden');
+        }
+    }
 }
 
 function applyTheme() {

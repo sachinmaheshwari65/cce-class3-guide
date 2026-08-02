@@ -34,6 +34,25 @@
         </div>
     </div>
 
+    <!-- Fail-safe Splash Screen Dismiss Script -->
+    <script>
+        (function() {
+            function dismissSplash() {
+                var splash = document.getElementById('splash');
+                var app = document.getElementById('app');
+                if (splash) {
+                    splash.classList.add('fade-out');
+                    splash.style.display = 'none';
+                }
+                if (app) {
+                    app.classList.remove('hidden');
+                }
+            }
+            setTimeout(dismissSplash, 800);
+            window.addEventListener('load', dismissSplash);
+        })();
+    </script>
+
     <!-- Main App -->
     <div id="app" class="app hidden">
         <!-- Header -->
