@@ -106,7 +106,88 @@
                 <button id="closeSidebar" class="close-sidebar">✕</button>
             </div>
             <nav class="sidebar-nav" id="sidebarNav">
-                <!-- Dynamic content -->
+                <button class="sidebar-nav-item active" onclick="showDashboard()" data-view="dashboard">
+                    <span class="nav-item-icon">🏠</span>
+                    <span>ડેશબોર્ડ</span>
+                </button>
+                <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                    📖 વિષયવાર નોટ્સ
+                </div>
+                <button class="sidebar-nav-item" onclick="openSubject('math')" data-subject="math">
+                    <span class="nav-item-icon">📐</span>
+                    <span>ગણિત (Math)</span>
+                    <span class="nav-item-badge">16</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('reasoning')" data-subject="reasoning">
+                    <span class="nav-item-icon">🧩</span>
+                    <span>રીઝનિંગ (Reasoning)</span>
+                    <span class="nav-item-badge">16</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('polity')" data-subject="polity">
+                    <span class="nav-item-icon">⚖️</span>
+                    <span>ભારતીય રાજનીતિ</span>
+                    <span class="nav-item-badge">7</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('english')" data-subject="english">
+                    <span class="nav-item-icon">🔤</span>
+                    <span>અંગ્રેજી (English)</span>
+                    <span class="nav-item-badge">15</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('history')" data-subject="history">
+                    <span class="nav-item-icon">🏛️</span>
+                    <span>ઇતિહાસ</span>
+                    <span class="nav-item-badge">19</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('geography')" data-subject="geography">
+                    <span class="nav-item-icon">🌍</span>
+                    <span>ભૂગોળ</span>
+                    <span class="nav-item-badge">15</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('culture')" data-subject="culture">
+                    <span class="nav-item-icon">🎨</span>
+                    <span>કળા અને સંસ્કૃતિ</span>
+                    <span class="nav-item-badge">6</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('economics')" data-subject="economics">
+                    <span class="nav-item-icon">💰</span>
+                    <span>અર્થશાસ્ત્ર</span>
+                    <span class="nav-item-badge">14</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('science')" data-subject="science">
+                    <span class="nav-item-icon">🔬</span>
+                    <span>વિજ્ઞાન (Science)</span>
+                    <span class="nav-item-badge">15</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="openSubject('current')" data-subject="current">
+                    <span class="nav-item-icon">📰</span>
+                    <span>સમસામયિક</span>
+                    <span class="nav-item-badge">5</span>
+                </button>
+                <div style="font-size: 0.75rem; font-weight: 800; color: var(--danger); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                    ⚡ CBT Mock Tests
+                </div>
+                <button class="sidebar-nav-item" onclick="startCbtExam('mocktest1', 180);" data-subject="mocktest1">
+                    <span class="nav-item-icon">📝</span>
+                    <span>કોન્સ્ટેબલ Mock Test - 1</span>
+                    <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="startCbtExam('cce2024pattern', 180);" data-subject="cce2024pattern">
+                    <span class="nav-item-icon">🎯</span>
+                    <span>CCE 2024 Real Exam Paper</span>
+                    <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="startCbtExam('gsssbclerk2022', 180);" data-subject="gsssbclerk2022">
+                    <span class="nav-item-icon">📜</span>
+                    <span>GSSSB Clerk 2022 Paper</span>
+                    <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+                </button>
+                <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
+                    📅 અભ્યાસ યોજના
+                </div>
+                <button class="sidebar-nav-item" onclick="showPlanView()" data-view="plan">
+                    <span class="nav-item-icon">📅</span>
+                    <span>30-દિવસ યોજના</span>
+                </button>
             </nav>
             <div class="sidebar-footer">
                 <div class="study-streak">
