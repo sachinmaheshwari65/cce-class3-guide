@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">GSSSB CCE Class-3 Master Guide</string>
+
+    <!-- Sidebar & Navigation -->
+    <string name="nav_dashboard">ડેશબોર્ડ</string>
+    <string name="nav_subject_notes">વિષયવાર નોટ્સ</string>
+    <string name="nav_cbt_tests">CBT Mock Tests</string>
+    <string name="nav_study_plan">અભ્યાસ યોજના</string>
+    <string name="nav_30_day_plan">30-દિવસ યોજના</string>
+
+    <!-- Subjects -->
+    <string name="subj_math">ગણિત (Mathematics)</string>
+    <string name="subj_math_desc">40.0% EXAM SHARE • 21 Topics</string>
+    <string name="subj_reasoning">રીઝનિંગ (Reasoning)</string>
+    <string name="subj_reasoning_desc">34.5% EXAM SHARE • 24 Topics</string>
+    <string name="subj_polity">ભારતીય રાજનીતિ</string>
+    <string name="subj_polity_desc">7.3% EXAM SHARE • 19 Topics</string>
+    <string name="subj_english">અંગ્રેજી (English)</string>
+    <string name="subj_english_desc">5.5% EXAM SHARE • 16 Topics</string>
+    <string name="subj_history">ઇતિહાસ</string>
+    <string name="subj_history_desc">4.0% EXAM SHARE • 13 Topics</string>
+    <string name="subj_geography">ભૂગોળ</string>
+    <string name="subj_geography_desc">3.0% EXAM SHARE • 18 Topics</string>
+    <string name="subj_culture">કળા અને સંસ્કૃતિ</string>
+    <string name="subj_culture_desc">3.5% EXAM SHARE • 6 Topics</string>
+    <string name="subj_economics">અર્થશાસ્ત્ર</string>
+    <string name="subj_economics_desc">3.0% EXAM SHARE • 14 Topics</string>
+    <string name="subj_science">વિજ્ઞાન (Science)</string>
+    <string name="subj_science_desc">2.7% EXAM SHARE • 15 Topics</string>
+    <string name="subj_gujarati">ગુજરાતી વ્યાકરણ</string>
+    <string name="subj_gujarati_desc">15 Marks • ૨૦૦ રુઢિપ્રયોગો</string>
+    <string name="subj_current">સમસામયિક</string>
+    <string name="subj_current_desc">5.0% EXAM SHARE • 5 Topics</string>
+
+    <!-- Mock Tests -->
+    <string name="mock_constable_1">કોન્સ્ટેબલ Mock Test - 1</string>
+    <string name="mock_constable_1_desc">60 Qs • 3 Hours Timer CBT</string>
+    <string name="mock_cce_2024">CCE 2024 Real Exam Paper</string>
+    <div name="mock_cce_2024_desc">Official Shift 1 &amp; 2 CBT</div>
+    <string name="mock_gsssb_clerk_2022">GSSSB Clerk 2022 Paper</string>
+    <string name="mock_gsssb_clerk_2022_desc">24 Apr 2022 Previous Paper CBT</string>
+    <string name="mock_target_60">⚡ Target 60 Marks Special CBT Test</string>
+    <string name="mock_target_60_desc">English (15) + Gujarati (15) + GA (30)</string>
+
+    <!-- UI Buttons & Messages -->
+    <string name="btn_start_cbt">⚡ 3-Hour CBT Live Mock Test આપો</string>
+    <string name="btn_mark_complete">☐ પૂર્ણ કરો</string>
+    <string name="btn_completed">✅ પૂર્ણ થયું!</string>
+    <string name="msg_topic_completed">✅ ટૉપિક પૂર્ણ!</string>
+    <string name="msg_topic_uncompleted">↩️ ટૉપિક અપૂર્ણ</string>
+    <string name="msg_time_up">⌛ સમય પૂરો થયો! ટેસ્ટ ઓટો-સબમિટ થાય છે.</string>
+
+    <!-- Stats -->
+    <string name="stat_total_topics">કુલ ટૉપિક્સ</string>
+    <string name="stat_completed">પૂર્ણ થયેલ</string>
+    <string name="stat_streak">સ્ટ્રીક (દિવસ)</string>
+    <string name="stat_quiz_score">ક્વિઝ સ્કોર</string>
+</resources>

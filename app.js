@@ -4,24 +4,79 @@
    =========================== */
 
 // ===========================
+// Android-like String Resources (Extracted to strings.xml)
+// ===========================
+const R = {
+    string: {
+        nav_dashboard: "ડેશબોર્ડ",
+        nav_subject_notes: "વિષયવાર નોટ્સ",
+        nav_cbt_tests: "CBT Mock Tests",
+        nav_study_plan: "અભ્યાસ યોજના",
+        nav_30_day_plan: "30-દિવસ યોજના",
+        subj_math: "ગણિત (Mathematics)",
+        subj_math_desc: "40.0% EXAM SHARE • 21 Topics",
+        subj_reasoning: "રીઝનિંગ (Reasoning)",
+        subj_reasoning_desc: "34.5% EXAM SHARE • 24 Topics",
+        subj_polity: "ભારતીય રાજનીતિ",
+        subj_polity_desc: "7.3% EXAM SHARE • 19 Topics",
+        subj_english: "અંગ્રેજી (English)",
+        subj_english_desc: "5.5% EXAM SHARE • 16 Topics",
+        subj_history: "ઇતિહાસ",
+        subj_history_desc: "4.0% EXAM SHARE • 13 Topics",
+        subj_geography: "ભૂગોળ",
+        subj_geography_desc: "3.0% EXAM SHARE • 18 Topics",
+        subj_culture: "કળા અને સંસ્કૃતિ",
+        subj_culture_desc: "3.5% EXAM SHARE • 6 Topics",
+        subj_economics: "અર્થશાસ્ત્ર",
+        subj_economics_desc: "3.0% EXAM SHARE • 14 Topics",
+        subj_science: "વિજ્ઞાન (Science)",
+        subj_science_desc: "2.7% EXAM SHARE • 15 Topics",
+        subj_current: "સમસામયિક",
+        subj_current_desc: "5.0% EXAM SHARE • 5 Topics",
+        mock_constable_1: "કોન્સ્ટેબલ Mock Test - 1",
+        mock_constable_1_desc: "60 Qs • 3 Hours Timer CBT",
+        mock_cce_2024: "CCE 2024 Real Exam Paper",
+        mock_cce_2024_desc: "Official Shift 1 & 2 CBT",
+        mock_gsssb_clerk_2022: "GSSSB Clerk 2022 Paper",
+        mock_gsssb_clerk_2022_desc: "24 Apr 2022 Previous Paper CBT",
+        mock_target_60: "⚡ Target 60 Marks Special CBT Test",
+        mock_target_60_desc: "English (15) + Gujarati (15) + GA (30)",
+        btn_start_cbt: "⚡ 3-Hour CBT Live Mock Test આપો",
+        btn_mark_complete: "☐ પૂર્ણ કરો",
+        btn_completed: "✅ પૂર્ણ થયું!",
+        msg_topic_completed: "✅ ટૉપિક પૂર્ણ!",
+        msg_topic_uncompleted: "↩️ ટૉપિક અપૂર્ણ",
+        msg_time_up: "⌛ સમય પૂરો થયો! ટેસ્ટ ઓટો-સબમિટ થાય છે."
+    }
+};
+
+function getString(id) {
+    return R.string[id] || id;
+}
+
+// ===========================
 // Configuration & Data
 // ===========================
 
 const coreSubjects = [
     {
         id: 'math',
-        name: 'ગણિત (Mathematics)',
-        nameEn: '40.0% EXAM SHARE • 21 Topics',
+        name: getString('subj_math'),
+        nameEn: getString('subj_math_desc'),
         icon: '📐',
         color: '#84cc16',
         priority: 'VERY HIGH',
         stars: '⭐⭐⭐⭐⭐',
-        getData: () => typeof mathData !== 'undefined' ? mathData : []
+        getData: () => {
+            const basic = typeof mathData !== 'undefined' ? mathData : [];
+            const full = typeof mathDataFull !== 'undefined' ? mathDataFull : [];
+            return [...basic, ...full];
+        }
     },
     {
         id: 'reasoning',
-        name: 'રીઝનિંગ (Reasoning)',
-        nameEn: '34.5% EXAM SHARE • 24 Topics',
+        name: getString('subj_reasoning'),
+        nameEn: getString('subj_reasoning_desc'),
         icon: '🧩',
         color: '#f43f5e',
         priority: 'VERY HIGH',
@@ -30,8 +85,8 @@ const coreSubjects = [
     },
     {
         id: 'polity',
-        name: 'ભારતીય રાજનીતિ',
-        nameEn: '7.3% EXAM SHARE • 19 Topics',
+        name: getString('subj_polity'),
+        nameEn: getString('subj_polity_desc'),
         icon: '⚖️',
         color: '#6366f1',
         priority: 'VERY HIGH',
@@ -40,8 +95,8 @@ const coreSubjects = [
     },
     {
         id: 'english',
-        name: 'અંગ્રેજી (English)',
-        nameEn: '5.5% EXAM SHARE • 16 Topics',
+        name: getString('subj_english'),
+        nameEn: getString('subj_english_desc'),
         icon: '🔤',
         color: '#06b6d4',
         priority: 'HIGH',
@@ -50,8 +105,8 @@ const coreSubjects = [
     },
     {
         id: 'history',
-        name: 'ઇતિહાસ',
-        nameEn: '4.0% EXAM SHARE • 13 Topics',
+        name: getString('subj_history'),
+        nameEn: getString('subj_history_desc'),
         icon: '🏛️',
         color: '#f97316',
         priority: 'HIGH',
@@ -60,8 +115,8 @@ const coreSubjects = [
     },
     {
         id: 'geography',
-        name: 'ભૂગોળ',
-        nameEn: '3.0% EXAM SHARE • 18 Topics',
+        name: getString('subj_geography'),
+        nameEn: getString('subj_geography_desc'),
         icon: '🌍',
         color: '#10b981',
         priority: 'HIGH',
@@ -70,8 +125,8 @@ const coreSubjects = [
     },
     {
         id: 'culture',
-        name: 'કળા અને સંસ્કૃતિ',
-        nameEn: '3.5% EXAM SHARE • 6 Topics',
+        name: getString('subj_culture'),
+        nameEn: getString('subj_culture_desc'),
         icon: '🎨',
         color: '#ec4899',
         priority: 'MEDIUM',
@@ -79,9 +134,19 @@ const coreSubjects = [
         getData: () => typeof cultureData !== 'undefined' ? cultureData : []
     },
     {
+        id: 'gujarati',
+        name: getString('subj_gujarati'),
+        nameEn: getString('subj_gujarati_desc'),
+        icon: '✍️',
+        color: '#f43f5e',
+        priority: 'HIGH',
+        stars: '⭐⭐⭐⭐☆',
+        getData: () => typeof gujaratiData !== 'undefined' ? gujaratiData : []
+    },
+    {
         id: 'economics',
-        name: 'અર્થશાસ્ત્ર',
-        nameEn: '3.0% EXAM SHARE • 14 Topics',
+        name: getString('subj_economics'),
+        nameEn: getString('subj_economics_desc'),
         icon: '💰',
         color: '#eab308',
         priority: 'HIGH',
@@ -90,8 +155,8 @@ const coreSubjects = [
     },
     {
         id: 'science',
-        name: 'વિજ્ઞાન (Science)',
-        nameEn: '2.7% EXAM SHARE • 15 Topics',
+        name: getString('subj_science'),
+        nameEn: getString('subj_science_desc'),
         icon: '🔬',
         color: '#3b82f6',
         priority: 'HIGH',
@@ -100,8 +165,8 @@ const coreSubjects = [
     },
     {
         id: 'current',
-        name: 'સમસામયિક',
-        nameEn: '5.0% EXAM SHARE • 5 Topics',
+        name: getString('subj_current'),
+        nameEn: getString('subj_current_desc'),
         icon: '📰',
         color: '#8b5cf6',
         priority: 'VERY HIGH',
@@ -113,8 +178,8 @@ const coreSubjects = [
 const mockTestPapers = [
     {
         id: 'mocktest1',
-        name: 'કોન્સ્ટેબલ Mock Test - 1',
-        nameEn: '60 Qs • 3 Hours Timer CBT',
+        name: getString('mock_constable_1'),
+        nameEn: getString('mock_constable_1_desc'),
         icon: '📝',
         color: '#e11d48',
         priority: 'VERY HIGH',
@@ -123,8 +188,8 @@ const mockTestPapers = [
     },
     {
         id: 'cce2024pattern',
-        name: 'CCE 2024 Real Exam Paper',
-        nameEn: 'Official Shift 1 & 2 CBT',
+        name: getString('mock_cce_2024'),
+        nameEn: getString('mock_cce_2024_desc'),
         icon: '🎯',
         color: '#10b981',
         priority: 'VERY HIGH',
@@ -133,8 +198,8 @@ const mockTestPapers = [
     },
     {
         id: 'gsssbclerk2022',
-        name: 'GSSSB Clerk 2022 Paper',
-        nameEn: '24 Apr 2022 Previous Paper CBT',
+        name: getString('mock_gsssb_clerk_2022'),
+        nameEn: getString('mock_gsssb_clerk_2022_desc'),
         icon: '📜',
         color: '#d97706',
         priority: 'VERY HIGH',
@@ -143,15 +208,26 @@ const mockTestPapers = [
     },
     {
         id: 'target60marks',
-        name: '⚡ Target 60 Marks Special CBT Test',
-        nameEn: 'English (15) + Gujarati (15) + GA (30)',
+        name: getString('mock_target_60'),
+        nameEn: getString('mock_target_60_desc'),
         icon: '🚀',
         color: '#ec4899',
         priority: 'TOP PRIORITY',
         stars: '⭐⭐⭐⭐⭐',
         getData: () => getTarget60MarksTopics()
+    },
+    {
+        id: 'mocktest2',
+        name: "CCE Full Mock Test - 2",
+        nameEn: "100 Qs • Comprehensive CBT",
+        icon: '📝',
+        color: '#f43f5e',
+        priority: 'VERY HIGH',
+        stars: '⭐⭐⭐⭐⭐',
+        getData: () => typeof mockTestData2 !== 'undefined' ? mockTestData2 : []
     }
 ];
+
 
 const subjects = [...coreSubjects, ...mockTestPapers];
 
@@ -848,10 +924,10 @@ function renderSidebar() {
         nav.innerHTML = `
             <button class="sidebar-nav-item active" onclick="showDashboard()" data-view="dashboard">
                 <span class="nav-item-icon">🏠</span>
-                <span>ડેશબોર્ડ</span>
+                <span>${getString('nav_dashboard')}</span>
             </button>
             <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-                📖 વિષયવાર નોટ્સ
+                📖 ${getString('nav_subject_notes')}
             </div>
             ${coreSubjects.map(s => {
                 let count = 0;
@@ -865,7 +941,7 @@ function renderSidebar() {
                 `;
             }).join('')}
             <div style="font-size: 0.75rem; font-weight: 800; color: var(--danger); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-                ⚡ CBT Mock Tests
+                ⚡ ${getString('nav_cbt_tests')}
             </div>
             ${mockTestPapers.map(s => {
                 let count = 0;
@@ -879,11 +955,11 @@ function renderSidebar() {
                 `;
             }).join('')}
             <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">
-                📅 અભ્યાસ યોજના
+                📅 ${getString('nav_study_plan')}
             </div>
             <button class="sidebar-nav-item" onclick="showPlanView()" data-view="plan">
                 <span class="nav-item-icon">📅</span>
-                <span>30-દિવસ યોજના</span>
+                <span>${getString('nav_30_day_plan')}</span>
             </button>
         `;
     } catch (err) {
@@ -943,7 +1019,7 @@ function renderDashboard() {
                     <div class="subject-card-subtitle">${s.nameEn} • ${total} પ્રશ્નો</div>
                     <button class="cbt-btn-nav cbt-btn-submit" 
                             style="width: 100%; margin-top: 0.75rem; justify-content: center; padding: 0.65rem 1rem; border-radius: 8px; font-weight: bold;">
-                        ⚡ 3-Hour CBT Live Mock Test આપો
+                        ${getString('btn_start_cbt')}
                     </button>
                 </div>
             `;
@@ -1218,7 +1294,24 @@ function openTopic(index) {
     const isCompleted = state.completedTopics[state.currentSubject]?.[index];
     const btn = document.getElementById('markCompleteBtn');
     btn.classList.toggle('completed', isCompleted);
-    btn.textContent = isCompleted ? '✅ પૂર્ણ થયું!' : '☐ પૂર્ણ કરો';
+    btn.textContent = isCompleted ? getString('btn_completed') : getString('btn_mark_complete');
+
+    // CBRT Topic Test Button Section
+    let testBtnHtml = `
+        <div style="margin-top: 1.5rem; padding: 1.25rem; background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(16,185,129,0.1)); border: 1px solid var(--accent); border-radius: 12px; text-align: center;">
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--accent-light); margin-bottom: 0.75rem;">
+                🚀 તમે આ ટોપિક વાંચી લીધો છે? હવે CBRT ટેસ્ટ આપી તમારી તૈયારી ચકાસો!
+            </div>
+            <button onclick="startChapterQuiz(${index})" style="padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 25px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); font-size: 1rem;">
+                📝 CBRT ટોપિક ટેસ્ટ શરૂ કરો (${chapterQs.length} પ્રશ્નો) →
+            </button>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                ⏱️ સમય: ${Math.ceil(chapterQs.length * 1.2)} મિનિટ (CCE Pattern)
+            </div>
+        </div>
+    `;
+
+    document.getElementById('topicContent').insertAdjacentHTML('beforeend', testBtnHtml);
 
     // Back button
     document.getElementById('topicBackBtn').onclick = () => openSubject(state.currentSubject);
@@ -1251,10 +1344,10 @@ function toggleTopicComplete() {
 
     const btn = document.getElementById('markCompleteBtn');
     btn.classList.toggle('completed', isCompleted);
-    btn.textContent = isCompleted ? '✅ પૂર્ણ થયું!' : '☐ પૂર્ણ કરો';
+    btn.textContent = isCompleted ? getString('btn_completed') : getString('btn_mark_complete');
 
     saveState();
-    showToast(isCompleted ? '✅ ટૉપિક પૂર્ણ!' : '↩️ ટૉપિક અપૂર્ણ');
+    showToast(isCompleted ? getString('msg_topic_completed') : getString('msg_topic_uncompleted'));
 }
 
 // ===========================
@@ -1318,24 +1411,30 @@ function startChapterQuiz(topicIdx) {
         return;
     }
 
-    quizState.questions = chapterQs;
-    quizState.currentIndex = 0;
-    quizState.score = 0;
-    quizState.answered = false;
-    quizState.chapterTitle = topic.topic;
+    // CCE Timer Logic: 1.2 minutes per question
+    const timeMins = Math.ceil(chapterQs.length * 1.2);
 
-    document.getElementById('quizTotal').textContent = quizState.questions.length;
-    const titleEl = document.querySelector('.quiz-header h2');
-    if (titleEl) titleEl.innerText = `🎯 ${topic.topic} (Chapter Quiz)`;
+    // Prepare CBT State for Chapter Test
+    cbtState = {
+        examId: 'chapter_test',
+        title: `🎯 Topic Test: ${topic.topic}`,
+        questions: chapterQs,
+        userAnswers: new Array(chapterQs.length).fill(null),
+        markedForReview: new Array(chapterQs.length).fill(false),
+        currentIndex: 0,
+        timeLeft: timeMins * 60,
+        timerInterval: null,
+        filter: 'all'
+    };
 
-    const resultEl = document.getElementById('quizResult');
-    if (resultEl) resultEl.classList.add('hidden');
-    const contentEl = document.getElementById('quizContent');
-    if (contentEl) contentEl.classList.remove('hidden');
+    document.getElementById('cbtExamTitle').textContent = cbtState.title;
+    showView('cbtExamView');
 
-    renderQuizQuestion();
-    switchView('quiz');
-    showToast(`🎯 ${topic.topic} ના પ્રશ્નોની ક્વિઝ શરૂ થઈ! (Zero Cross Mix)`);
+    startCbtTimer();
+    renderCbtQuestion();
+    renderCbtPalette();
+
+    showToast(`🚀 ${chapterQs.length} પ્રશ્નો, સમય: ${timeMins} મિનિટ`);
 }
 
 function startQuiz() {
@@ -1746,7 +1845,7 @@ function startCbtTimer() {
         updateCbtTimerDisplay();
         if (cbtState.timeLeft <= 0) {
             clearInterval(cbtState.timerInterval);
-            showToast("⌛ સમય પૂરો થયો! ટેસ્ટ ઓટો-સબમિટ થાય છે.");
+            showToast(getString('msg_time_up'));
             submitCbtExam();
         }
     }, 1000);
