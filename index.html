@@ -11,11 +11,10 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
     <script>
+        // Register service worker if available. Do not forcibly unregister existing registrations.
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(registrations => {
-                for (let reg of registrations) {
-                    reg.unregister();
-                }
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW register failed:', err));
             });
         }
     </script>
@@ -179,6 +178,11 @@
                 <button class="sidebar-nav-item" onclick="startCbtExam('gsssbclerk2022', 180);" data-subject="gsssbclerk2022">
                     <span class="nav-item-icon">📜</span>
                     <span>GSSSB Clerk 2022 Paper</span>
+                    <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
+                </button>
+                <button class="sidebar-nav-item" onclick="startCbtExam('mocktest2', 180);" data-subject="mocktest2">
+                    <span class="nav-item-icon">📝</span>
+                    <span>CCE Full Mock Test - 2</span>
                     <span class="nav-item-badge" style="background: var(--danger); color: white;">CBT</span>
                 </button>
                 <div style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding: 0.75rem 1rem 0.25rem 1rem; text-transform: uppercase;">

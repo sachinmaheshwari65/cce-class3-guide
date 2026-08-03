@@ -17,9 +17,16 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
+    // Tolerant install: try to add all assets but continue even if some fail
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(ASSETS);
+            return Promise.all(ASSETS.map(url => {
+                return cache.add(url).catch(err => {
+                    // Log but don't fail the install for missing assets
+                    console.warn('Asset cache failed:', url, err);
+                    return Promise.resolve();
+                });
+            }));
         }).then(() => self.skipWaiting())
     );
 });

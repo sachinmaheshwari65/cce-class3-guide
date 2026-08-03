@@ -38,7 +38,7 @@
     <string name="mock_constable_1">કોન્સ્ટેબલ Mock Test - 1</string>
     <string name="mock_constable_1_desc">60 Qs • 3 Hours Timer CBT</string>
     <string name="mock_cce_2024">CCE 2024 Real Exam Paper</string>
-    <div name="mock_cce_2024_desc">Official Shift 1 &amp; 2 CBT</div>
+    <string name="mock_cce_2024_desc">Official Shift 1 &amp; 2 CBT</string>
     <string name="mock_gsssb_clerk_2022">GSSSB Clerk 2022 Paper</string>
     <string name="mock_gsssb_clerk_2022_desc">24 Apr 2022 Previous Paper CBT</string>
     <string name="mock_target_60">⚡ Target 60 Marks Special CBT Test</string>

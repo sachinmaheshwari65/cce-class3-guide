@@ -1372,35 +1372,73 @@ let quizState = {
     chapterTitle: ''
 };
 
+function shuffleQuestionOptions(q) {
+    if (!q || !q.options || q.options.length < 2) return q;
+    const correctOptionText = q.options[q.correct !== undefined ? q.correct : 0];
+    const shuffled = [...q.options];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const newCorrectIndex = shuffled.indexOf(correctOptionText);
+    return {
+        ...q,
+        options: shuffled,
+        correct: newCorrectIndex >= 0 ? newCorrectIndex : 0
+    };
+}
+
 function getChapterQuestions(topic) {
     if (topic && topic.questions && topic.questions.length > 0) {
-        return topic.questions;
+        return topic.questions.map(q => shuffleQuestionOptions(q));
     }
 
     const questions = [];
-    if (!topic || !topic.keyPoints) return questions;
+    if (!topic) return questions;
 
-    topic.keyPoints.forEach((point, pIdx) => {
-        if (point.length < 8) return;
+    const points = topic.keyPoints || [];
+    points.forEach((point, pIdx) => {
+        if (!point || point.length < 5) return;
 
-        let qText = `પ્રશ્ન: ${topic.topic} સંબંધિત નીચેનામાંથી કયું વિધાન સાચું છે?`;
-        if (point.includes('એટલે') || point.includes('કહેવાય') || point.includes('થાય') || point.includes('હશે')) {
-            qText = `${topic.topic}: "${point.split('(')[0]}" વિશે શું સાચું છે?`;
+        let qText = "";
+        let options = [];
+
+        if (point.includes('=')) {
+            const parts = point.split('=');
+            qText = `${topic.topic}: ${parts[0].trim()} ની મૂલ્ય કે કિંમત શું થાય?`;
+            const val = parts[1].trim();
+            options = [
+                val,
+                `${parseInt(val) ? parseInt(val) + 2 : val + ' (અસંગત)'}`,
+                `${parseInt(val) ? parseInt(val) - 1 : 'ઉપરોક્ત તમામ'}`,
+                `ઉપરોક્ત પૈકી એક પણ નહીં`
+            ];
+        } else if (point.includes(':')) {
+            const parts = point.split(':');
+            qText = `${topic.topic}: ${parts[0].trim()} વિષે નીચેનામાંથી કયું સાચું છે?`;
+            options = [
+                parts[1].trim(),
+                `તે બંધારણીય ગેરકાયદેસર છે.`,
+                `માત્ર શરતી સંજોગોમાં લાગુ પડે છે.`,
+                `ઉપરોક્ત પૈકી એક પણ નહીં`
+            ];
+        } else {
+            qText = `${topic.topic} ના સંદર્ભમાં કઈ માહિતી સાચી છે?`;
+            options = [
+                point,
+                `આ ક્ષેત્રમાં કોઈ નિયમ લાગુ પડતો નથી.`,
+                `માત્ર સૈદ્ધાંતિક રીતે શક્ય છે.`,
+                `ઉપરોક્ત પૈકી એક પણ નહીં`
+            ];
         }
 
-        const options = [
-            point,
-            `આ વિધાન સંગત નથી.`,
-            `ઉપરોક્ત પૈકી એક પણ નહીં.`,
-            `વિધાન A અને B બંને સાચા છે.`
-        ];
-
-        questions.push({
+        questions.push(shuffleQuestionOptions({
+            id: pIdx + 1,
             question: qText,
             options: options,
             correct: 0,
             explanation: `પાઠ્યપુસ્તક તથ્ય: ${point}`
-        });
+        }));
     });
 
     return questions.slice(0, 10);
@@ -1798,13 +1836,22 @@ function startCbtExam(examId, customTimeMins) {
                 if (topicData[0].options && topicData[0].question) {
                     rawQuestions = topicData;
                 } else {
-                    rawQuestions = topicData.map((t, idx) => ({
-                        id: idx + 1,
-                        question: t.topic || t.question,
-                        options: t.keyPoints && t.keyPoints.length >= 4 ? t.keyPoints.slice(0, 4) : ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
-                        correct: 0,
-                        explanation: t.content || t.explanation || "CCE Study Solution"
-                    }));
+                    rawQuestions = [];
+                    topicData.forEach((t) => {
+                        const qs = getChapterQuestions(t);
+                        if (qs && qs.length > 0) {
+                            rawQuestions.push(...qs);
+                        }
+                    });
+                    if (rawQuestions.length === 0) {
+                        rawQuestions = topicData.map((t, idx) => shuffleQuestionOptions({
+                            id: idx + 1,
+                            question: `${t.topic}: પરીક્ષાલક્ષી સંકલ્પના વિષે સાચો જવાબ પસંદ કરો.`,
+                            options: t.keyPoints && t.keyPoints.length >= 4 ? t.keyPoints.slice(0, 4) : ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
+                            correct: 0,
+                            explanation: t.content || t.explanation || "CCE Study Solution"
+                        }));
+                    }
                 }
             }
             examTitle = `📝 ${currentSubject.name || currentSubject.topic} CBT Quiz`;
@@ -1908,57 +1955,73 @@ function renderCbtQuestion() {
 
     html += `<div class="cbt-options-grid">`;
     const letters = ['A', 'B', 'C', 'D'];
+    const showExplanation = cbtState.showExplanation?.[cbtState.currentIndex] || cbtState.submitted;
     
     q.options.forEach((opt, idx) => {
         let btnClass = 'cbt-option-btn';
         
-        if (userSelected !== null) {
+        if (showExplanation) {
             if (idx === q.correct) {
                 btnClass += ' cbt-correct'; // Green
             } else if (idx === userSelected) {
                 btnClass += ' cbt-wrong'; // Red
             }
+        } else if (idx === userSelected) {
+            btnClass += ' cbt-selected'; // Selected active option
         }
         
         html += `
-            <button class="${btnClass}" onclick="selectCbtOption(${idx})">
+            <button class="${btnClass}" onclick="selectCbtOption(${idx})" style="${idx === userSelected && !showExplanation ? 'border: 2px solid var(--accent); background: var(--accent-glow); font-weight: bold;' : ''}">
                 <span class="cbt-option-letter">${letters[idx]}</span>
                 <span style="flex: 1;">${opt}</span>
+                ${idx === userSelected ? '<span style="font-size: 0.85rem;">✓</span>' : ''}
             </button>
         `;
     });
     
     html += `</div>`;
     
-    // Instant solution snippet if answered
-    if (userSelected !== null) {
+    const isLast = cbtState.currentIndex === total - 1;
+    html += `
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+            <button onclick="toggleCbtExplanation()" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; color: var(--accent-light); font-weight: bold; cursor: pointer;">
+                💡 ${showExplanation ? 'સોલ્યુશન છુપાવો' : 'સાચો ઉત્તર & સોલ્યુશન જુઓ'}
+            </button>
+            <div style="display: flex; gap: 0.5rem;">
+                ${isLast ? `
+                    <button class="cbt-nav-btn cbt-btn-submit" onclick="submitCbtExamConfirm()" style="padding: 0.6rem 1.25rem; font-weight: bold;">
+                        📥 સબમિટ ટેસ્ટ
+                    </button>
+                ` : `
+                    <button class="cbt-nav-btn cbt-btn-next" onclick="nextCbtQuestion()" style="padding: 0.6rem 1.25rem; font-weight: bold;">
+                        આગળનો પ્રશ્ન →
+                    </button>
+                `}
+            </div>
+        </div>
+    `;
+
+    if (showExplanation) {
         const isRight = userSelected === q.correct;
-        const isLast = cbtState.currentIndex === total - 1;
-        
         html += `
-            <div style="margin-top: 1.25rem; padding: 1.25rem; border-radius: 10px; background: ${isRight ? 'var(--success-light)' : 'var(--danger-light)'}; border-left: 5px solid ${isRight ? 'var(--success)' : 'var(--danger)'};">
-                <strong style="font-size: 1.05rem; color: ${isRight ? 'var(--success)' : 'var(--danger)'}; display: block; margin-bottom: 0.5rem;">
-                    ${isRight ? '✅ સાચો જવાબ!' : '❌ ખોટો જવાબ! (સાચો વિકલ્પ: ' + letters[q.correct] + ')'}
+            <div style="margin-top: 1rem; padding: 1.25rem; border-radius: 10px; background: ${userSelected !== null ? (isRight ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)') : 'var(--bg-surface)'}; border-left: 5px solid ${userSelected !== null ? (isRight ? 'var(--success)' : 'var(--danger)') : 'var(--accent)'};">
+                <strong style="font-size: 1rem; color: ${userSelected !== null ? (isRight ? 'var(--success)' : 'var(--danger)') : 'var(--accent-light)'}; display: block; margin-bottom: 0.4rem;">
+                    ${userSelected === null ? 'ℹ️ સાચો જવાબ: વિકલ્પ ' + letters[q.correct] : (isRight ? '✅ સાચો જવાબ!' : '❌ ખોટો જવાબ! (સાચો વિકલ્પ: ' + letters[q.correct] + ')')}
                 </strong>
                 <div style="font-size: 0.95rem; line-height: 1.6; white-space: pre-line; color: var(--text-primary);">
                     <strong>💡 સ્પષ્ટીકરણ / સોલ્યુશન:</strong>\n${q.explanation || 'આ પ્રશ્નનો સાચો જવાબ વિકલ્પ ' + letters[q.correct] + ' છે.'}
-                </div>
-                <div style="margin-top: 1.25rem;">
-                    ${isLast ? `
-                        <button class="cbt-nav-btn cbt-btn-submit" style="width: 100%; padding: 0.75rem; font-size: 1rem; justify-content: center; font-weight: bold;" onclick="submitCbtExamConfirm()">
-                            📥 Submit Test (સબમિટ ટેસ્ટ)
-                        </button>
-                    ` : `
-                        <button class="cbt-nav-btn cbt-btn-next" style="width: 100%; padding: 0.75rem; font-size: 1rem; justify-content: center; font-weight: bold;" onclick="nextCbtQuestion()">
-                            આગળનો પ્રશ્ન → (Next Question)
-                        </button>
-                    `}
                 </div>
             </div>
         `;
     }
 
     container.innerHTML = html;
+}
+
+function toggleCbtExplanation() {
+    if (!cbtState.showExplanation) cbtState.showExplanation = {};
+    cbtState.showExplanation[cbtState.currentIndex] = !cbtState.showExplanation[cbtState.currentIndex];
+    renderCbtQuestion();
 }
 
 function selectCbtOption(optionIndex) {
@@ -2627,13 +2690,13 @@ function showBookmarksView() {
     const bookmarks = JSON.parse(localStorage.getItem('cce_bookmarks') || '[]');
 
     if (bookmarks.length === 0) {
-        container.innerHTML = `
+        safeSetInnerHTML(container, `
             <div style="padding: 3rem; text-align: center; color: var(--text-muted);">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">🔖</div>
                 <h3>હજુ સુધી કોઈ બુકમાર્ક નથી!</h3>
-                <p style="font-size: 0.9rem;">તમે અભ્યાસ કરતી વખતે કે પ્રશ્નો સોલ્વ કરતી વખતે બુકમાર્ક બટન પર ક્લિક કરીને સેવ કરી શકો છો.</p>
+                <p style="font-size: 0.9rem;">તમે અભ્યાસ કરતી વખતે કે પ્રશ્નો સોલ્વ કરતી વખતે બુકમાર્ક બટન પર ક્લિક કરીને सेव કરી શકો છો.</p>
             </div>
-        `;
+        `);
         return;
     }
 
@@ -2650,7 +2713,7 @@ function showBookmarksView() {
         `;
     });
 
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
 }
 
 function toggleBookmark(type, encodedTitle) {
@@ -2682,13 +2745,13 @@ function showErrorBookView() {
     const letters = ['A', 'B', 'C', 'D'];
 
     if (errorBook.length === 0) {
-        container.innerHTML = `
+        safeSetInnerHTML(container, `
             <div style="padding: 3rem; text-align: center; color: var(--text-muted);">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
                 <h3>તમારી AI Error Book બિલકુલ ખાલી છે!</h3>
                 <p style="font-size: 0.9rem;">તમે CBT Mock Tests માં જે પ્રશ્નો ખોટા આપશો તે આપોઆપ અહીં ઉમેરાશે જેથી તમે તેનું સ્પેશિયલ પુનરાવર્તન કરી શકો.</p>
             </div>
-        `;
+        `);
         return;
     }
 
@@ -2717,7 +2780,7 @@ function showErrorBookView() {
         `;
     });
 
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
 }
 
 function removeFromErrorBook(idx) {
@@ -2953,7 +3016,7 @@ function renderCrackHub() {
       </div>
     `;
 
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
     updateCalculatorTarget(savedTarget);
 }
 
@@ -3003,10 +3066,10 @@ function flipFlashcard(idx) {
     if (!card) return;
 
     if (cardText.dataset.flipped === 'true') {
-        cardText.innerHTML = `❓ ${card.q}`;
+        safeSetInnerHTML(cardText, `❓ ${card.q}`);
         cardText.dataset.flipped = 'false';
     } else {
-        cardText.innerHTML = `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${card.a}`;
+        safeSetInnerHTML(cardText, `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${card.a}`);
         cardText.dataset.flipped = 'true';
     }
 }
@@ -3055,10 +3118,10 @@ function flipTopicFlashcard(idx) {
     const a = cardText.dataset.a;
 
     if (cardText.dataset.flipped === 'true') {
-        cardText.innerHTML = `❓ ${q}`;
+        safeSetInnerHTML(cardText, `❓ ${q}`);
         cardText.dataset.flipped = 'false';
     } else {
-        cardText.innerHTML = `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${a}`;
+        safeSetInnerHTML(cardText, `<span style="color: #10b981;">💡 જવાબ / શોર્ટ ટ્રિક:</span><br>${a}`);
         cardText.dataset.flipped = 'true';
     }
 }
