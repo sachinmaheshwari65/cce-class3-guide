@@ -2,7 +2,15 @@ const englishData = [
   // 1. BASIC GRAMMAR
   {
     "topic": "📘 English Module 1 – Noun: સંકલ્પના અને પ્રકારો",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">1. Noun એટલે શું?</h4>\n      <p>વ્યક્તિ, વસ્તુ કે સ્થળને ઓળખવા માટે વપરાતા શબ્દને Noun (નામ) કહેવાય.</p>\n      <ul style=\"list-style: none; padding-left: 0;\">\n        <li>• <b>Proper Noun:</b> Sachin, Gujarat.</li>\n        <li>• <b>Common Noun:</b> player, city.</li>\n        <li>• <b>Collective Noun:</b> team, army.</li>\n      </ul>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">1. Noun એટલે શું?</h4> 
+      <p>વ્યક્તિ, વસ્તુ કે સ્થળને ઓળખવા માટે વપરાતા શબ્દને Noun (નામ) કહેવાય.</p> 
+      <ul style=\"list-style: none; padding-left: 0;\"> 
+        <li>• <b>Proper Noun:</b> Sachin, Gujarat.</li> 
+        <li>• <b>Common Noun:</b> player, city.</li> 
+        <li>• <b>Collective Noun:</b> team, army.</li> 
+      </ul> 
+    </div>`,
     "keyPoints": ["Proper Noun નો પ્રથમ અક્ષર Capital હોય."],
     "questions": [
       {
@@ -15,7 +23,10 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 2 – Noun and Number (વચન)",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">બહુવચન બનાવવાના નિયમો</h4>\n      <p>Boy ➔ Boys. Box ➔ Boxes. Wife ➔ Wives. Child ➔ Children.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">બહુવચન બનાવવાના નિયમો</h4> 
+      <p>Boy ➔ Boys. Box ➔ Boxes. Wife ➔ Wives. Child ➔ Children.</p> 
+    </div>`,
     "keyPoints": ["Sheep, Deer સરખા રહે."],
     "questions": [
       {
@@ -28,7 +39,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 3 – Pronoun: સંકલ્પના અને કોષ્ટક",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>I, We, You, He, She, It, They.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>I, We, You, He, She, It, They.</p> 
+    </div>`,
     "keyPoints": ["I ➔ me ➔ my ➔ mine."],
     "questions": [
       {
@@ -41,7 +54,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 4 – Verb: ક્રિયાપદના પ્રકારો અને રૂપો",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>V1 - V2 - V3. Speak - Spoke - Spoken.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>V1 - V2 - V3. Speak - Spoke - Spoken.</p> 
+    </div>`,
     "keyPoints": ["V3 પેસિવમાં વપરાય."],
     "questions": [
       {
@@ -54,7 +69,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 5 – Adjectives: વિશેષણના પ્રકારો",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Good, Bad, Clever, Much, Many.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Good, Bad, Clever, Much, Many.</p> 
+    </div>`,
     "keyPoints": ["નામના અર્થમાં વધારો કરે."],
     "questions": [
       {
@@ -67,7 +84,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 6 – Adverb: ક્રિયા વિશેષણ",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Slowly, Carefully, Always.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Slowly, Carefully, Always.</p> 
+    </div>`,
     "keyPoints": ["ક્રિયાના અર્થમાં વધારો કરે."],
     "questions": [
       {
@@ -82,7 +101,9 @@ const englishData = [
   // 2. SENTENCE STRUCTURE & CONNECTORS
   {
     "topic": "📘 English Module 7 – Jumbled Words: વાક્ય રચના (S-V-O)",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Subject + Verb + Object.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Subject + Verb + Object.</p> 
+    </div>`,
     "keyPoints": ["કર્તા પહેલા આવે."],
     "questions": [
       {
@@ -95,7 +116,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 8 – Prepositions of Time and Place",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>At, On, In, Between, Among.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>At, On, In, Between, Among.</p> 
+    </div>`,
     "keyPoints": ["At ➔ ચોક્કસ સમય."],
     "questions": [
       {
@@ -108,7 +131,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 9 – Conjunctions: સંયોજકો (FANBOYS)",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>And, But, Or, So, Because.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>And, But, Or, So, Because.</p> 
+    </div>`,
     "keyPoints": ["બે વાક્યોને જોડે."],
     "questions": [
       {
@@ -123,7 +148,9 @@ const englishData = [
   // 3. ADVANCED GRAMMAR
   {
     "topic": "📘 English Module 10 – Simple Present & Continuous Tenses",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>He goes. She is going.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>He goes. She is going.</p> 
+    </div>`,
     "keyPoints": ["Is/Am/Are + V-ing."],
     "questions": [
       {
@@ -136,7 +163,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 11 – Active & Passive Voice: Basics",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Ram writes a letter. ➔ A letter is written by Ram.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Ram writes a letter. ➔ A letter is written by Ram.</p> 
+    </div>`,
     "keyPoints": ["Object + Helping Verb + V3."],
     "questions": [
       {
@@ -149,7 +178,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 12 – Direct & Indirect Speech: Basics",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>He said, \"I am ready.\" ➔ He said that he was ready.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>He said, \"I am ready.\" ➔ He said that he was ready.</p> 
+    </div>`,
     "keyPoints": ["Tense backshifts."],
     "questions": [
       {
@@ -162,7 +193,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 13 – Transformation of Sentences",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Affirmative to Negative using Antonyms.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Affirmative to Negative using Antonyms.</p> 
+    </div>`,
     "keyPoints": ["Maintain meaning."],
     "questions": [
       {
@@ -177,7 +210,9 @@ const englishData = [
   // 4. VOCABULARY & ONE WORDS
   {
     "topic": "📘 English Module 14 – Vocabulary: Synonyms & Antonyms",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Abandon ➔ Leave. Ancient ➔ Modern.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Abandon ➔ Leave. Ancient ➔ Modern.</p> 
+    </div>`,
     "keyPoints": ["Tone elimination."],
     "questions": [
       {
@@ -190,7 +225,9 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 15 – Idioms and Common Phrases",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>Piece of cake. Once in a blue moon.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>Piece of cake. Once in a blue moon.</p> 
+    </div>`,
     "keyPoints": ["Memory tricks included."],
     "questions": [
       {
@@ -203,7 +240,16 @@ const englishData = [
   },
   {
     "topic": "📘 English Module 16 – One Word Substitutions: Most Imp",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">પરીક્ષાલક્ષી અગત્યના શબ્દસમૂહ</h4>\n      <ul style=\"padding-left: 1.5rem;\">\n        <li>• <b>Atheist:</b> જે ભગવાનમાં નથી માનતો.</li>\n        <li>• <b>Inaudible:</b> જે સાંભળી ન શકાય.</li>\n        <li>• <b>Eloquent:</b> અસરકારક રીતે બોલનાર.</li>\n        <li>• <b>Verbose:</b> જરૂર કરતા વધુ શબ્દો વાપરનાર.</li>\n        <li>• <b>Laconic:</b> બહુ ઓછા શબ્દોમાં વાત કરનાર.</li>\n      </ul>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <h4 style=\"color: var(--accent-light); border-bottom: 2px solid var(--accent); padding-bottom: 5px;\">પરીક્ષાલક્ષી અગત્યના શબ્દસમૂહ</h4> 
+      <ul style=\"padding-left: 1.5rem;\"> 
+        <li>• <b>Atheist:</b> જે ભગવાનમાં નથી માનતો.</li> 
+        <li>• <b>Inaudible:</b> જે સાંભળી ન શકાય.</li> 
+        <li>• <b>Eloquent:</b> અસરકારક રીતે બોલનાર.</li> 
+        <li>• <b>Verbose:</b> જરૂર કરતા વધુ શબ્દો વાપરનાર.</li> 
+        <li>• <b>Laconic:</b> બહુ ઓછા શબ્દોમાં વાત કરનાર.</li> 
+      </ul> 
+    </div>`,
     "keyPoints": ["Root words થી યાદ રાખો."],
     "questions": [
       {
@@ -218,7 +264,9 @@ const englishData = [
   // 5. TRANSLATION
   {
     "topic": "⚡ English Module 17 – English to Gujarati Translation Strategy",
-    "content": "<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\">\n      <p>5-Step Method. Pick natural Gujarati sentences.</p>\n    </div>",
+    "content": `<div style=\"font-size: 1.05rem; line-height: 1.7; color: var(--text-primary);\"> 
+      <p>5-Step Method. Pick natural Gujarati sentences.</p> 
+    </div>`,
     "keyPoints": ["Context is king."],
     "questions": [
       {
@@ -229,4 +277,5 @@ const englishData = [
       }
     ]
   }
-];\n\nif (typeof module !== 'undefined') { module.exports = { englishData }; }
+];
+

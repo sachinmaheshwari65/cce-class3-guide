@@ -172,6 +172,16 @@ const coreSubjects = [
         priority: 'VERY HIGH',
         stars: '⭐⭐⭐⭐⭐',
         getData: () => typeof currentAffairsData !== 'undefined' ? currentAffairsData : []
+    },
+    {
+        id: 'ccecourse',
+        name: '🔥 55 PDF CCE ફુલ કોર્સ',
+        nameEn: '55 PDF COURSE MODULES • Official Material',
+        icon: '📚',
+        color: '#f59e0b',
+        priority: 'TOP PRIORITY',
+        stars: '⭐⭐⭐⭐⭐',
+        getData: () => typeof cceCourseData !== 'undefined' ? cceCourseData : []
     }
 ];
 
