@@ -1,4 +1,9 @@
 {
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "audit": "npm audit --omit=dev"
+  },
   "dependencies": {
     "pdf-parse": "^1.1.1"
   }

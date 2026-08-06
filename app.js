@@ -1,3 +1,36 @@
+const studyPlan30DaysMentor = [
+    { day: 1, subject: '🧩 Reasoning', label: 'કોડિંગ-ડીકોડિંગ (Letter Shifting & Opposite)', topics: 'EJOTY + Sum 27 Tricks' },
+    { day: 2, subject: '🧩 Reasoning', label: 'લોહીના સંબંધ (Blood Relations)', topics: 'Gender Cancellation & Family Tree' },
+    { day: 3, subject: '🧩 Reasoning', label: 'દિશા અને અંતર (Direction)', topics: 'Pythagoras & 90 deg Rotation' },
+    { day: 4, subject: '🧩 Reasoning', label: 'બેઠક વ્યવસ્થા (Seating Arrangement)', topics: 'Circle & Line Short Method' },
+    { day: 5, subject: '🧩 Reasoning', label: 'ઘડિયાળ અને કેલેન્ડર (Clock & Calendar)', topics: '30H - 5.5M & Odd Days' },
+    { day: 6, subject: '🧩 Reasoning', label: 'શ્રેણી અને સાદૃશ્યતા (Series & Analogy)', topics: 'Diff of Diff & Square Cube' },
+    { day: 7, subject: '🧩 Reasoning', label: 'આકૃતિ ગણતરી & દર્પણ પ્રતિબિંબ', topics: 'Triangle Count & Mirror Flip' },
+    { day: 8, subject: '📐 Maths', label: 'સંખ્યા પદ્ધતિ & સાદું વ્યાજ', topics: 'BODMAS & SI=PTR/100' },
+    { day: 9, subject: '📐 Maths', label: 'ટકાવારી (Percentage)', topics: 'x+y+xy/100 & Ratio Conversion' },
+    { day: 10, subject: '📐 Maths', label: 'નફો અને ખોટ (Profit & Loss)', topics: 'Multiplier & CP/SP Ratio' },
+    { day: 11, subject: '📐 Maths', label: 'ગુણોત્તર અને ભાગીદારી (Ratio)', topics: 'Proportion & Profit Share' },
+    { day: 12, subject: '📐 Maths', label: 'સમય અને કાર્ય (Time & Work)', topics: 'LCM Efficiency Method' },
+    { day: 13, subject: '📐 Maths', label: 'ઝડપ, અંતર અને ટ્રેન', topics: '5/18 Conversion & Relative Speed' },
+    { day: 14, subject: '📐 Maths', label: 'પરિમિતિ, ક્ષેત્રફળ અને ઘનફળ', topics: '2D & 3D Direct Formulas' },
+    { day: 15, subject: '🔤 English', label: 'Tenses & Auxiliary Verbs', topics: 'Since/For & Time Triggers' },
+    { day: 16, subject: '🔤 English', label: 'Active & Passive Voice', topics: 'Subject-Object Swap & Be+V3' },
+    { day: 17, subject: '🔤 English', label: 'Direct & Indirect Speech', topics: 'Backshift & Pronoun Chart' },
+    { day: 18, subject: '✍️ Gujarati', label: 'સમાસનો વિગ્રહ અને ઓળખ', topics: 'દ્રન્દ્વ, તત્પુરુષ, કર્મધારય' },
+    { day: 19, subject: '✍️ Gujarati', label: 'છંદ અને તેના પ્રકારો', topics: '17 અક્ષર & લઘુ-ગુરુ બંધારણ' },
+    { day: 20, subject: '✍️ Gujarati', label: 'અલંકાર અને રૂઢિપ્રયોગો', topics: 'ઉપમા, ઉત્પ્રેક્ષા, રૂપક કી-વર્ડ્સ' },
+    { day: 21, subject: '📰 GA/GS', label: 'ભારતીય બંધારણ (Articles 12-51A)', topics: 'મૂળભૂત હકો & ફરજો' },
+    { day: 22, subject: '📰 GA/GS', label: 'ગુજરાતનો ઇતિહાસ અને સંસ્કૃતિ', topics: 'સોલંકી યુગ & સત્યાગ્રહ' },
+    { day: 23, subject: '📰 GA/GS', label: 'ગુજરાત અને ભારતની ભૂગોળ', topics: 'નદીઓ, બંધો & અભયારણ્ય' },
+    { day: 24, subject: '📰 GA/GS', label: 'સામાન્ય વિજ્ઞાન (Science)', topics: 'રોગો, વિટામિન્સ & ન્યુટન નિયમો' },
+    { day: 25, subject: '📰 GA/GS', label: 'કરંટ અફેર્સ (Last 6 Months)', topics: 'યોજનાઓ, એવોર્ડ્સ & સ્પોર્ટ્સ' },
+    { day: 26, subject: '📜 Practice', label: 'CCE 2024 Shift-1 Real Paper', topics: '150 Qs Live CBT Solving' },
+    { day: 27, subject: '📜 Practice', label: 'GSSSB Clerk 2022 Paper', topics: 'Time Speed Improvement' },
+    { day: 28, subject: '🏆 Mock Test', label: 'Full CBT Mock Test - 1', topics: '150 Qs in 180 Mins Engine' },
+    { day: 29, subject: '🏆 Mock Test', label: 'Full CBT Mock Test - 2', topics: 'Final Weak Area Revision' },
+    { day: 30, subject: '🎯 Target', label: 'Final Exam Hall Mindset', topics: 'Zero Negative Marking Strategy' }
+];
+
 /* ===========================
    CCE Class-3 Study Guide
    Main Application Logic
@@ -53,6 +86,35 @@ const R = {
 function getString(id) {
     return R.string[id] || id;
 }
+
+// ---------------------------
+// Sanitization helpers
+// Prefer DOMPurify when available, fallback to safe text-encoding
+function sanitizeHTML(html) {
+    if (!html && html !== '') return '';
+    try {
+        if (window.DOMPurify && typeof DOMPurify.sanitize === 'function') {
+            return DOMPurify.sanitize(html);
+        }
+    } catch (e) {
+        console.warn('DOMPurify error:', e);
+    }
+    // Fallback: escape by using textContent on a DOM node
+    const div = document.createElement('div');
+    div.textContent = html;
+    return div.innerHTML;
+}
+
+function safeSetInnerHTML(el, html) {
+    if (!el) return;
+    el.innerHTML = sanitizeHTML(html);
+}
+
+function safeAppendHTML(el, html) {
+    if (!el) return;
+    el.insertAdjacentHTML('beforeend', sanitizeHTML(html));
+}
+
 
 // ===========================
 // Configuration & Data
@@ -907,6 +969,8 @@ function init() {
         renderSidebar();
         renderDashboard();
         bindEvents();
+        // UI helpers: enable sidebar truncation preview handlers
+        try { initSidebarPreviews(); } catch(e) { /* non-fatal */ }
     } catch (err) {
         console.error("Initialization Error:", err);
     } finally {
@@ -922,6 +986,100 @@ function init() {
     }
 }
 
+// Initialize sidebar preview behavior: Alt+click a truncated item to preview full content
+function initSidebarPreviews() {
+    // Create modal container once
+    if (!document.getElementById('previewModalOverlay')) {
+        const overlay = document.createElement('div');
+        overlay.id = 'previewModalOverlay';
+        overlay.className = 'preview-modal-overlay hidden';
+        overlay.innerHTML = `
+            <div class="preview-modal" role="dialog" aria-modal="true">
+                <button class="preview-close" aria-label="Close">✕</button>
+                <div class="preview-title"></div>
+                <div class="preview-body"></div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        overlay.querySelector('.preview-close').addEventListener('click', () => {
+            overlay.classList.add('hidden');
+        });
+        overlay.addEventListener('click', (ev) => {
+            if (ev.target === overlay) overlay.classList.add('hidden');
+        });
+    }
+
+    // Attach handlers to sidebar items: Alt+click to preview full inner content
+    const items = document.querySelectorAll('.sidebar-nav-item');
+    items.forEach(item => {
+        // Alt+click preview (keyboard modifier)
+        item.addEventListener('click', function (ev) {
+            try {
+                if (!ev.altKey) return; // only trigger preview when Alt key is held
+                ev.preventDefault();
+                ev.stopPropagation();
+                showPreviewForItem(item);
+            } catch (e) {
+                console.error('Preview error', e);
+            }
+        }, { passive: false });
+
+        // Hover preview for pointer-capable (desktop) devices
+        const hoverSupported = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (hoverSupported) {
+            item.addEventListener('mouseenter', function () {
+                // schedule preview after small delay
+                clearTimeout(item._previewTimer);
+                item._previewTimer = setTimeout(() => {
+                    showPreviewForItem(item);
+                }, 500);
+            });
+            item.addEventListener('mouseleave', function () {
+                // cancel scheduled preview
+                clearTimeout(item._previewTimer);
+                // if overlay is visible, schedule hide shortly unless mouse moved into overlay
+                const overlay = document.getElementById('previewModalOverlay');
+                if (overlay && !overlay.classList.contains('hidden')) {
+                    clearTimeout(overlay._hideTimer);
+                    overlay._hideTimer = setTimeout(() => overlay.classList.add('hidden'), 350);
+                }
+            });
+        }
+    });
+
+    // Overlay hover interactions: if user moves into overlay, keep it open; hide when leaving
+    const overlay = document.getElementById('previewModalOverlay');
+    if (overlay) {
+        overlay.addEventListener('mouseenter', () => {
+            clearTimeout(overlay._hideTimer);
+        });
+        overlay.addEventListener('mouseleave', () => {
+            clearTimeout(overlay._hideTimer);
+            overlay._hideTimer = setTimeout(() => overlay.classList.add('hidden'), 250);
+        });
+    }
+
+    // Helper to populate and show preview for an item
+    function showPreviewForItem(item) {
+        try {
+            const overlay = document.getElementById('previewModalOverlay');
+            if (!overlay) return;
+            const titleEl = overlay.querySelector('.preview-title');
+            const bodyEl = overlay.querySelector('.preview-body');
+            const label = Array.from(item.children).find(c => c.tagName === 'SPAN' && !c.classList.contains('nav-item-icon') && !c.classList.contains('nav-item-badge'));
+            const titleText = label ? (label.textContent || '').trim() : (item.getAttribute('data-subject') || item.textContent || 'Preview');
+            titleEl.textContent = titleText;
+            safeSetInnerHTML(bodyEl, item.innerHTML);
+            overlay.classList.remove('hidden');
+            // ensure any pending hide is cancelled
+            clearTimeout(overlay._hideTimer);
+        } catch (e) {
+            console.error('showPreviewForItem error', e);
+        }
+    }
+}
+
 function applyTheme() {
     document.documentElement.setAttribute('data-theme', state.theme);
     document.getElementById('themeToggle').textContent = state.theme === 'dark' ? '🌙' : '☀️';
@@ -931,7 +1089,7 @@ function renderSidebar() {
     const nav = document.getElementById('sidebarNav');
     if (!nav) return;
     try {
-        nav.innerHTML = `
+        safeSetInnerHTML(nav, `
             <button class="sidebar-nav-item active" onclick="showDashboard()" data-view="dashboard">
                 <span class="nav-item-icon">🏠</span>
                 <span>${getString('nav_dashboard')}</span>
@@ -971,7 +1129,7 @@ function renderSidebar() {
                 <span class="nav-item-icon">📅</span>
                 <span>${getString('nav_30_day_plan')}</span>
             </button>
-        `;
+        `);
     } catch (err) {
         console.error('renderSidebar error:', err);
     }
@@ -980,7 +1138,7 @@ function renderSidebar() {
 function renderDashboard() {
     // 1. Core Subject Grid
     const grid = document.getElementById('subjectGrid');
-    grid.innerHTML = coreSubjects.map((s, i) => {
+    safeSetInnerHTML(grid, coreSubjects.map((s, i) => {
         const data = s.getData();
         const completed = getCompletedCount(s.id);
         const total = data.length;
@@ -1006,12 +1164,12 @@ function renderDashboard() {
                 </div>
             </div>
         `;
-    }).join('');
+    }).join(''));
 
     // 2. Mock Test Papers Hub Grid
     const mockGrid = document.getElementById('mockTestGrid');
     if (mockGrid) {
-        mockGrid.innerHTML = mockTestPapers.map((s, i) => {
+        safeSetInnerHTML(mockGrid, mockTestPapers.map((s, i) => {
             const data = s.getData();
             const total = data.length;
 
@@ -1033,13 +1191,13 @@ function renderDashboard() {
                     </button>
                 </div>
             `;
-        }).join('');
+        }).join(''));
     }
 
     // Study plan mini
     const planEl = document.getElementById('studyPlan');
     const today = getDayOfStudy();
-    planEl.innerHTML = studyPlan.map(p => {
+    safeSetInnerHTML(planEl, studyPlan.map(p => {
         const isToday = p.day === today;
         const isCompleted = state.planDaysCompleted.includes(p.day);
         return `
@@ -1050,16 +1208,16 @@ function renderDashboard() {
                 <div class="plan-day-subject">${p.label}</div>
             </div>
         `;
-    }).join('');
+    }).join(''));
 
     // Repeated topics
     const repEl = document.getElementById('repeatedTopics');
-    repEl.innerHTML = mostRepeated.map((t, i) => `
+    safeSetInnerHTML(repEl, mostRepeated.map((t, i) => `
         <div class="repeated-topic-item animate-in">
             <span class="repeated-topic-rank">${i + 1}</span>
             <span class="repeated-topic-name">${t}</span>
         </div>
-    `).join('');
+    `).join(''));
 
     // Stats
     updateStats();
@@ -1170,7 +1328,7 @@ function openSubject(subjectId) {
 
         const listEl = document.getElementById('topicList');
         if (listEl) {
-            listEl.innerHTML = data.map((t, i) => {
+            safeSetInnerHTML(listEl, data.map((t, i) => {
                 const isCompleted = state.completedTopics[subjectId]?.[i];
                 return `
                     <div class="topic-item ${isCompleted ? 'completed' : ''} animate-in" 
@@ -1183,7 +1341,7 @@ function openSubject(subjectId) {
                         <span class="topic-item-arrow">→</span>
                     </div>
                 `;
-            }).join('');
+            }).join(''));
         }
 
         switchView('subject');
@@ -1298,7 +1456,7 @@ function openTopic(index) {
         </div>
     `;
 
-    document.getElementById('topicContent').innerHTML = html;
+    safeSetInnerHTML(document.getElementById('topicContent'), html);
 
     // Update complete button
     const isCompleted = state.completedTopics[state.currentSubject]?.[index];
@@ -1321,7 +1479,7 @@ function openTopic(index) {
         </div>
     `;
 
-    document.getElementById('topicContent').insertAdjacentHTML('beforeend', testBtnHtml);
+    safeAppendHTML(document.getElementById('topicContent'), testBtnHtml);
 
     // Back button
     document.getElementById('topicBackBtn').onclick = () => openSubject(state.currentSubject);
@@ -1580,7 +1738,7 @@ function renderQuizQuestion() {
     document.getElementById('quizCurrent').textContent = quizState.currentIndex + 1;
 
     const letters = ['A', 'B', 'C', 'D'];
-    document.getElementById('quizContent').innerHTML = `
+    safeSetInnerHTML(document.getElementById('quizContent'), `
         <div class="quiz-question">
             ${q.topicRef ? `<div style="margin-bottom: 0.75rem; padding: 0.4rem 0.85rem; background: var(--accent-glow); border: 1px solid var(--accent); border-radius: 20px; display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--accent-light);">📖 ${q.topicRef}</div>` : ''}
             <div class="quiz-question-text" style="font-size: 1.05rem; font-weight: 700; line-height: 1.7; margin-bottom: 1rem;">${q.question}</div>
@@ -1593,7 +1751,7 @@ function renderQuizQuestion() {
                 `).join('')}
             </div>
         </div>
-    `;
+    `);
     quizState.answered = false;
 }
 
@@ -1623,7 +1781,7 @@ function selectQuizAnswer(index) {
     // Add explanation + next button
     const isLast = quizState.currentIndex >= quizState.questions.length - 1;
     const container = document.getElementById('quizContent');
-    container.innerHTML += `
+    safeAppendHTML(container, `
         <div style="margin-top: 1.25rem; padding: 1.25rem; border-radius: 12px; background: ${isCorrect ? 'var(--success-light)' : 'var(--danger-light)'}; border-left: 5px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'};">
             <strong style="font-size: 1rem; color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; display: block; margin-bottom: 0.5rem;">
                 ${isCorrect ? '✅ સાચો જવાબ! શાબાશ!' : '❌ ખોટો! સાચો જવાબ: ' + letters[q.correct]}
@@ -1635,7 +1793,7 @@ function selectQuizAnswer(index) {
         <button class="quiz-btn-next" style="margin-top: 1rem; width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: bold;" onclick="${isLast ? 'showQuizResult()' : 'nextQuizQuestion()'}">
             ${isLast ? '📊 રિઝલ્ટ જુઓ' : 'આગળનો પ્રશ્ન → (Next)'}
         </button>
-    `;
+    `);
 }
 
 function nextQuizQuestion() {
@@ -1660,12 +1818,12 @@ function showQuizResult() {
     else if (percent >= 60) { emoji = '😊'; msg = 'સારું! થોડું વધુ મહેનત!'; }
     else if (percent >= 40) { emoji = '🤔'; msg = 'ઠીક છે, રિવિઝન કરો!'; }
 
-    resultEl.innerHTML = `
+    safeSetInnerHTML(resultEl, `
         <div class="quiz-result-icon">${emoji}</div>
         <div class="quiz-result-score">${quizState.score}/${total}</div>
         <div class="quiz-result-text">${msg} (${percent}%)</div>
         <button class="quiz-result-btn" onclick="exitQuiz()">🔙 પાછા જાઓ</button>
-    `;
+    `);
 
     updateStats();
 }
@@ -1682,39 +1840,149 @@ function exitQuiz() {
 // Study Plan View
 // ===========================
 
-function renderPlanTabs(activeType = '60days') {
+function renderPlanTabs(activeType = '30days_mentor') {
     return `
         <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-            <button onclick="showPlanView('60days')" style="padding: 0.75rem 1.25rem; background: ${activeType === '60days' ? 'linear-gradient(135deg, var(--accent), #10b981)' : 'var(--bg-surface)'}; color: white; border: 1px solid var(--accent); border-radius: 25px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.3);">
-                🎯 60-Day Target Plan (Maths/Reasoning Complete)
+            <button onclick="showPlanView('30days_mentor')" style="padding: 0.75rem 1.25rem; background: ${activeType === '30days_mentor' ? 'linear-gradient(135deg, #f59e0b, #ef4444)' : 'var(--bg-surface)'}; color: white; border: 1px solid #f59e0b; border-radius: 25px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(245,158,11,0.3);">
+                🎓 30-Day Master Teacher Crack Plan & 2-Trick System
+            </button>
+            <button onclick="showPlanView('60days')" style="padding: 0.75rem 1.25rem; background: ${activeType === '60days' ? 'linear-gradient(135deg, var(--accent), #10b981)' : 'var(--bg-surface)'}; color: ${activeType === '60days' ? 'white' : 'var(--text-primary)'}; border: 1px solid var(--accent); border-radius: 25px; font-weight: 800; cursor: pointer;">
+                🎯 60-Day Target Plan
             </button>
             <button onclick="showPlanView('30days')" style="padding: 0.75rem 1.25rem; background: ${activeType === '30days' ? 'linear-gradient(135deg, var(--accent), #8b5cf6)' : 'var(--bg-surface)'}; color: ${activeType === '30days' ? 'white' : 'var(--text-primary)'}; border: 1px solid var(--border); border-radius: 25px; font-weight: 700; cursor: pointer;">
-                📅 30-Day General Crash Course
+                📅 30-Day General Plan
             </button>
         </div>
     `;
 }
 
-function showPlanView(planType = '60days') {
+function showPlanView(planType = '30days_mentor') {
     const planEl = document.getElementById('planContent');
     if (!planEl) return;
 
     let weeks = [];
     let bannerHtml = '';
 
-    if (planType === '60days') {
+    if (planType === '30days_mentor') {
+        bannerHtml = `
+            <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15)); border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <h2 style="color: #f59e0b; margin: 0; font-size: 1.35rem; font-weight: 800;">
+                            👨‍🏫 30 દિવસમાં CCE Class-3 પરીક્ષા પાસ કરવાની શિક્ષકની માસ્ટર સ્ટ્રેટેજી (0-Fee Mentor Plan)
+                        </h2>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                            🎯 લક્ષ્યાંક: 150 પ્રશ્નો / 180 મિનિટમાં 100% ચોકસાઈ અને 2-શોર્ટ ટ્રિક પદ્ધતિથી સોલ્વ કરો!
+                        </div>
+                    </div>
+                    <button onclick="startCbtExam('cce2024pattern', 180)" style="padding: 0.65rem 1.25rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.4);">
+                        ⚡ 180 મિનિટ 150 Qs CBT Mock Test આપો →
+                    </button>
+                </div>
+
+                <!-- 3 Hours 150 Qs Time Management Strategy -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;">
+                    <h3 style="color: #6366f1; margin-top: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        ⏱️ 3 કલાક (180 મિનિટ) 150 પ્રશ્નો ટાઇમ મેનેજમેન્ટ સ્ટ્રેટેજી (Per Question 1.2 min / 72 sec):
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; font-size: 0.88rem;">
+                        <div style="background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                            <strong>Phase 1 (0-30 Mins):</strong><br>
+                            📰 GK/GS (30 Qs) + ✍️ ગુજરાતી (15 Qs) = 45 Qs.<br>
+                            <em>(સરળ ફેક્ટ્સ, વાંચતા જ ટીક કરો - 40 Sec/Q)</em>
+                        </div>
+                        <div style="background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border-left: 4px solid #06b6d4;">
+                            <strong>Phase 2 (30-60 Mins):</strong><br>
+                            🔤 અંગ્રેજી (15 Qs) + 🧩 રીઝનિંગ સરળ (15 Qs) = 30 Qs.<br>
+                            <em>(Grammar Rules + Direct Matching)</em>
+                        </div>
+                        <div style="background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border-left: 4px solid #f43f5e;">
+                            <strong>Phase 3 (60-120 Mins):</strong><br>
+                            🧩 રીઝનિંગ અગત્યના (45 Qs) = 45 Qs.<br>
+                            <em>(Short-Trick 1: EJOTY & Tree Method)</em>
+                        </div>
+                        <div style="background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border-left: 4px solid #84cc16;">
+                            <strong>Phase 4 (120-170 Mins):</strong><br>
+                            📐 ગણિત (30 Qs) = 30 Qs.<br>
+                            <em>(Short-Trick 1: Ratio & Option Elimination)</em>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Master 2-Trick System per Subject -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                    <h3 style="color: #f59e0b; margin-top: 0; font-size: 1.1rem;">
+                        🔥 દરેક વિષય માટે 2 શોર્ટ-ટ્રિક સિસ્ટમ (Double Short-Trick Method):
+                    </h3>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                        <!-- 1. Reasoning -->
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 1rem; border-radius: 10px;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: #f43f5e;">🧩 1. રીઝનિંગ (60 માર્ક્સ - સૌથી વધુ વેઇટેજ):</h4>
+                            <div style="font-size: 0.9rem; line-height: 1.6;">
+                                🔹 <strong>કોડિંગ-ડીકોડિંગ:</strong><br>
+                                • <em>Trick 1 (Speed < 15s):</em> EJOTY (5,10,15,20,25) & Sum 27 (A-Z, B-Y, C-X).<br>
+                                • <em>Trick 2 (Fail-Safe):</em> અક્ષરોનો સ્થાન ક્રમ સરવાળો ચેક કરવો (BOY = 2+15+25 = 42).<br>
+                                🔹 <strong>લોહીના સંબંધ:</strong><br>
+                                • <em>Trick 1 (Speed < 20s):</em> લિંગ આધારે (-) સ્ત્રી (+) પુરુષ કેન્સલેશન ફોર્મ્યુલા.<br>
+                                • <em>Trick 2 (Fail-Safe):</em> સ્વયં પોતાના પરિવારના સભ્યો સાથે સરખામણી કરી ફેમિલી ટ્રી બનાવવું.
+                            </div>
+                        </div>
+
+                        <!-- 2. Math -->
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 1rem; border-radius: 10px;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: #84cc16;">📐 2. ગણિત (30 માર્ક્સ):</h4>
+                            <div style="font-size: 0.9rem; line-height: 1.6;">
+                                🔹 <strong>ટકાવારી (Percentage):</strong><br>
+                                • <em>Trick 1 (Speed < 15s):</em> અસરકારક ટકાવારી સૂત્ર: x + y + (xy/100).<br>
+                                • <em>Trick 2 (Fail-Safe):</em> ગુણોત્તર (Ratio Method): 20% = 1/5, 25% = 1/4 ગણતરી સરળ કરો.<br>
+                                🔹 <strong>સમય અને કાર્ય (Time & Work):</strong><br>
+                                • <em>Trick 1 (Speed < 20s):</em> LCM પદ્ધતિથી કલાક દીઠ ક્ષમતા (Efficiency) શોધો.<br>
+                                • <em>Trick 2 (Fail-Safe):</em> M1*D1*H1 / W1 = M2*D2*H2 / W2 સાંકડીયાનો નિયમ.
+                            </div>
+                        </div>
+
+                        <!-- 3. English -->
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 1rem; border-radius: 10px;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: #06b6d4;">🔤 3. અંગ્રેજી (15 માર્ક્સ):</h4>
+                            <div style="font-size: 0.9rem; line-height: 1.6;">
+                                🔹 <strong>Active-Passive Voice:</strong><br>
+                                • <em>Trick 1 (Speed < 10s):</em> વિષય-કર્મની અદલાબદલી + કાળ મુજબ Be રૂપ + V3 શોધો.<br>
+                                • <em>Trick 2 (Fail-Safe):</em> આપેલ વાક્યમાં By + Agent અથવા Be રૂપની યોગ્યતા ચકાસો.<br>
+                                🔹 <strong>Tenses & Error Spotting:</strong><br>
+                                • <em>Trick 1 (Speed < 10s):</em> કાળના કી-વર્ડ્સ (Since/For ➔ Perfect Cont., Already ➔ Perfect).
+                            </div>
+                        </div>
+
+                        <!-- 4. Gujarati -->
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border); padding: 1rem; border-radius: 10px;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: #ec4899;">✍️ 4. ગુજરાતી વ્યાકરણ (15 માર્ક્સ):</h4>
+                            <div style="font-size: 0.9rem; line-height: 1.6;">
+                                🔹 <strong>છંદ ઓળખ:</strong><br>
+                                • <em>Trick 1 (Speed < 15s):</em> અક્ષર સંખ્યા ગણતરી (17 અક્ષર ➔ પૃથ્વી/મંદારક્રાન્તા/શિખરિણી).<br>
+                                • <em>Trick 2 (Fail-Safe):</em> પ્રથમ ત્રણ અક્ષરોના લઘુ-ગુરુ બંધારણ (જ-ભ-જ-સ-ગ-ગા ➔ પૃથ્વી).<br>
+                                🔹 <strong>અલંકાર:</strong><br>
+                                • <em>Trick 1 (Speed < 10s):</em> 'જેવું, સમું, સરખું' ➔ ઉપમા, 'જાણે, રખે, શકે' ➔ ઉત્પ્રેક્ષા.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        weeks = [
+            { title: '🥇 Week 1 (Day 1-7): Reasoning Complete Mastery (60 Marks Share)', days: studyPlan30DaysMentor.slice(0, 7) },
+            { title: '🥈 Week 2 (Day 8-14): Mathematics High-Yield Short-Tricks (30 Marks)', days: studyPlan30DaysMentor.slice(7, 14) },
+            { title: '🥉 Week 3 (Day 15-21): English & Gujarati Grammar Core (30 Marks)', days: studyPlan30DaysMentor.slice(14, 21) },
+            { title: '🏆 Week 4 (Day 22-30): General Awareness Sprint & Live 150 Qs CBT Mock Tests', days: studyPlan30DaysMentor.slice(21, 30) }
+        ];
+    } else if (planType === '60days') {
         bannerHtml = `
             <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
                 <h3 style="color: #10b981; margin-bottom: 0.5rem; font-weight: 800;">🔥 Target 60-Day Crash Course Strategy (Maths & Reasoning Complete)</h3>
                 <p style="color: var(--text-primary); font-size: 0.9rem; line-height: 1.6;">
                     તમારી પાસે ગણિત (30 માર્કસ) અને રીઝનિંગ (60 માર્કસ) 100% પૂર્ણ છે! આ 60 દિવસની યોજના મુખ્યત્વે બાકીના <strong>60 માર્ક્સ (અંગ્રેજી 15, ગુજરાતી 15, સામાન્ય જાગૃતિ 30)</strong> પર 100% ધ્યાન કેન્દ્રિત કરે છે.
                 </p>
-                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">40% સમય: સામાન્ય જાગૃતિ</span>
-                    <span style="background: rgba(6, 182, 212, 0.2); color: #67e8f9; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">25% સમય: અંગ્રેજી ભાષા</span>
-                    <span style="background: rgba(236, 72, 153, 0.2); color: #f9a8d4; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">25% સમય: ગુજરાતી ભાષા</span>
-                    <span style="background: rgba(132, 204, 22, 0.2); color: #a3e635; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">10% સમય: Maths/Reasoning Revision</span>
-                </div>
             </div>
         `;
 
@@ -1737,7 +2005,7 @@ function showPlanView(planType = '60days') {
         ];
     }
 
-    planEl.innerHTML = renderPlanTabs(planType) + bannerHtml + weeks.map(w => `
+    safeSetInnerHTML(planEl, renderPlanTabs(planType) + bannerHtml + weeks.map(w => `
         <div class="plan-week">
             <div class="plan-week-header">${w.title}</div>
             <div class="plan-week-content">
@@ -1752,7 +2020,7 @@ function showPlanView(planType = '60days') {
                 `).join('')}
             </div>
         </div>
-    `).join('');
+    `).join(''));
 
     switchView('plan');
     closeSidebar();
@@ -2015,7 +2283,7 @@ function renderCbtQuestion() {
         `;
     }
 
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
 }
 
 function toggleCbtExplanation() {
@@ -2092,7 +2360,7 @@ function renderCbtPalette() {
         html += `<button class="${itemClass}" onclick="jumpToCbtQuestion(${idx})">${idx + 1}</button>`;
     });
     
-    grid.innerHTML = html;
+    safeSetInnerHTML(grid, html);
 }
 
 function submitCbtExamConfirm() {
@@ -2141,11 +2409,11 @@ function submitCbtExam() {
     
     // Render Result Summary
     const summary = document.getElementById('cbtResultSummary');
-    summary.innerHTML = `
+    safeSetInnerHTML(summary, `
         <div style="font-size: 3rem; margin-bottom: 0.5rem;">${percent >= 60 ? '🏆' : percent >= 40 ? '👍' : '🎯'}</div>
         <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">${cbtState.title}</h2>
         <div style="font-size: 2.2rem; font-weight: 800; color: var(--accent-light); margin: 0.5rem 0;">
-            મેળવેલ ગુણ: ${totalMarks.toFixed(2)} / ${totalQs} (${percent}%)
+            отримેલ ગુણ: ${totalMarks.toFixed(2)} / ${totalQs} (${percent}%)
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
             <div style="background: var(--success-light); color: var(--success); padding: 1rem; border-radius: 10px; font-weight: bold;">
@@ -2161,7 +2429,7 @@ function submitCbtExam() {
                 <div>⚠️ પ્રયત્ન વિનાના</div>
             </div>
         </div>
-    `;
+    `);
     
     showView('cbtResultView');
     filterCbtReview('all');
@@ -2233,7 +2501,7 @@ function filterCbtReview(filterType) {
         html = `<div style="text-align: center; padding: 2rem; color: var(--text-muted);">આ ફિલ્ટરમાં કોઈ પ્રશ્નો મળ્યા નથી.</div>`;
     }
     
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
 }
 
 function exitCbtExam() {
@@ -2509,7 +2777,7 @@ function processUploadedPaper() {
 
     const resDiv = document.getElementById('paperAnalysisResult');
     if (resDiv) {
-        resDiv.innerHTML = analysisHtml;
+        safeSetInnerHTML(resDiv, analysisHtml);
         resDiv.style.display = 'block';
     }
 
@@ -2657,9 +2925,9 @@ function handleGlobalSearch(event) {
     });
 
     if (matches.length === 0) {
-        container.innerHTML = `<div style="padding: 2rem; text-align: center; color: var(--text-muted);">
-            ❌ '${query}' સંબંધિત કોઈ માહિતી મળી નહીં. કૃપા કરીને અન્ય કીવર્ડથી શોધો.
-        </div>`;
+        safeSetInnerHTML(container, `<div style="padding: 2rem; text-align: center; color: var(--text-muted);">
+            ❌ '${query}' સંબંધિત કોઈ माहिती મળી નહીં. કૃપા કરીને અન્ય કીવર્ડથી શોધો.
+        </div>`);
         return;
     }
 
@@ -2681,7 +2949,7 @@ function handleGlobalSearch(event) {
         `;
     });
 
-    container.innerHTML = html;
+    safeSetInnerHTML(container, html);
 }
 
 function showBookmarksView() {
@@ -3035,7 +3303,7 @@ function updateCalculatorTarget(val) {
     const gujaratiTarget = Math.min(15, Math.round(targetNum * 0.12));
     const gkTarget = Math.max(0, targetNum - (reasoningTarget + mathTarget + englishTarget + gujaratiTarget));
 
-    breakdown.innerHTML = `
+    safeSetInnerHTML(breakdown, `
         <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem; color: var(--accent-light);">
           🎯 લક્ષ્યાંક મેળવવા વિષયવાર જરૂરી ગુણ:
         </div>
@@ -3054,7 +3322,7 @@ function updateCalculatorTarget(val) {
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
           <span>📚 GS/ઈતિહાસ/ભૂગોળ:</span> <strong>${gkTarget} / 90</strong>
         </div>
-    `;
+    `);
 }
 
 function flipFlashcard(idx) {
@@ -3142,18 +3410,18 @@ function askTopicDoubt(customQuery = null) {
     if (!resultBox) return;
 
     resultBox.style.display = 'block';
-    resultBox.innerHTML = `
+    safeSetInnerHTML(resultBox, `
         <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent-light); font-weight: bold;">
             <span>🤖 AI Doubt Solver વિશ્લેષણ કરી રહ્યું છે...</span>
         </div>
-    `;
+    `);
 
     setTimeout(() => {
         const subject = subjects.find(s => s.id === state.currentSubject);
         const topicName = subject ? subject.getData()[state.currentTopicIndex]?.topic : "આ ચેપ્ટર";
         
         let responseHtml = generateTopicDoubtSolution(topicName, query, state.currentSubject);
-        resultBox.innerHTML = responseHtml;
+        safeSetInnerHTML(resultBox, responseHtml);
         if (input) input.value = '';
         showToast("💡 ડાઉટનું સ્ટેપ-બાય-સ્ટેપ સોલ્યુશન તૈયાર છે!");
     }, 400);

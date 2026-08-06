@@ -175,8 +175,8 @@ body {
     justify-content: space-between;
     padding: 0 1rem;
     z-index: 1000;
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
 }
 
 .header-left {
@@ -382,6 +382,57 @@ body {
     text-align: center;
 }
 
+/* Truncate long labels in the sidebar to avoid overflow */
+.sidebar-nav-item > span:not(.nav-item-icon):not(.nav-item-badge) {
+    display: inline-block;
+    max-width: calc(var(--sidebar-width) - 110px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* Preview modal for long content */
+.preview-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+}
+.preview-modal {
+    width: min(820px, calc(100% - 48px));
+    max-height: 80vh;
+    overflow: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow-lg);
+}
+.preview-modal .preview-title {
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--accent-light);
+}
+.preview-modal .preview-body {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.preview-modal .preview-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
 .sidebar-nav-item .nav-item-badge {
     margin-left: auto;
     background: var(--accent);
@@ -507,6 +558,7 @@ body {
     padding: 0.75rem;
     background: rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-sm);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
@@ -1333,8 +1385,8 @@ body {
     align-items: center;
     justify-content: space-around;
     z-index: 1000;
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
 }
 
 .bottom-nav .nav-item {
@@ -1413,6 +1465,7 @@ body {
     position: sticky;
     top: var(--header-height);
     z-index: 50;
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
 }
 
