@@ -11,10 +11,21 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
     <script>
-        // Register service worker if available. Do not forcibly unregister existing registrations.
+        // Force unregister Service Worker and clear cache to apply updates instantly
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW register failed:', err));
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) {
+                    r.unregister().then(() => {
+                        console.log('Service Worker unregistered successfully');
+                    });
+                }
+            });
+        }
+        if ('caches' in window) {
+            caches.keys().then(keys => {
+                for (let k of keys) {
+                    caches.delete(k).then(() => console.log('Cache cleared:', k));
+                }
             });
         }
     </script>
