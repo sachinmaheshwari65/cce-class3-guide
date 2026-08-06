@@ -988,95 +988,10 @@ function init() {
 
 // Initialize sidebar preview behavior: Alt+click a truncated item to preview full content
 function initSidebarPreviews() {
-    // Create modal container once
-    if (!document.getElementById('previewModalOverlay')) {
-        const overlay = document.createElement('div');
-        overlay.id = 'previewModalOverlay';
-        overlay.className = 'preview-modal-overlay hidden';
-        overlay.innerHTML = `
-            <div class="preview-modal" role="dialog" aria-modal="true">
-                <button class="preview-close" aria-label="Close">✕</button>
-                <div class="preview-title"></div>
-                <div class="preview-body"></div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-
-        overlay.querySelector('.preview-close').addEventListener('click', () => {
-            overlay.classList.add('hidden');
-        });
-        overlay.addEventListener('click', (ev) => {
-            if (ev.target === overlay) overlay.classList.add('hidden');
-        });
-    }
-
-    // Attach handlers to sidebar items: Alt+click to preview full inner content
-    const items = document.querySelectorAll('.sidebar-nav-item');
-    items.forEach(item => {
-        // Alt+click preview (keyboard modifier)
-        item.addEventListener('click', function (ev) {
-            try {
-                if (!ev.altKey) return; // only trigger preview when Alt key is held
-                ev.preventDefault();
-                ev.stopPropagation();
-                showPreviewForItem(item);
-            } catch (e) {
-                console.error('Preview error', e);
-            }
-        }, { passive: false });
-
-        // Hover preview for pointer-capable (desktop) devices
-        const hoverSupported = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        if (hoverSupported) {
-            item.addEventListener('mouseenter', function () {
-                // schedule preview after small delay
-                clearTimeout(item._previewTimer);
-                item._previewTimer = setTimeout(() => {
-                    showPreviewForItem(item);
-                }, 500);
-            });
-            item.addEventListener('mouseleave', function () {
-                // cancel scheduled preview
-                clearTimeout(item._previewTimer);
-                // if overlay is visible, schedule hide shortly unless mouse moved into overlay
-                const overlay = document.getElementById('previewModalOverlay');
-                if (overlay && !overlay.classList.contains('hidden')) {
-                    clearTimeout(overlay._hideTimer);
-                    overlay._hideTimer = setTimeout(() => overlay.classList.add('hidden'), 350);
-                }
-            });
-        }
-    });
-
-    // Overlay hover interactions: if user moves into overlay, keep it open; hide when leaving
+    // Ensure modal overlay is hidden if present
     const overlay = document.getElementById('previewModalOverlay');
     if (overlay) {
-        overlay.addEventListener('mouseenter', () => {
-            clearTimeout(overlay._hideTimer);
-        });
-        overlay.addEventListener('mouseleave', () => {
-            clearTimeout(overlay._hideTimer);
-            overlay._hideTimer = setTimeout(() => overlay.classList.add('hidden'), 250);
-        });
-    }
-
-    // Helper to populate and show preview for an item
-    function showPreviewForItem(item) {
-        try {
-            const overlay = document.getElementById('previewModalOverlay');
-            if (!overlay) return;
-            const titleEl = overlay.querySelector('.preview-title');
-            const bodyEl = overlay.querySelector('.preview-body');
-            const label = Array.from(item.children).find(c => c.tagName === 'SPAN' && !c.classList.contains('nav-item-icon') && !c.classList.contains('nav-item-badge'));
-            const titleText = label ? (label.textContent || '').trim() : (item.getAttribute('data-subject') || item.textContent || 'Preview');
-            titleEl.textContent = titleText;
-            safeSetInnerHTML(bodyEl, item.innerHTML);
-            overlay.classList.remove('hidden');
-            // ensure any pending hide is cancelled
-            clearTimeout(overlay._hideTimer);
-        } catch (e) {
-            console.error('showPreviewForItem error', e);
-        }
+        overlay.classList.add('hidden');
     }
 }
 
