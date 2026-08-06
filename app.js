@@ -91,28 +91,17 @@ function getString(id) {
 // Sanitization helpers
 // Prefer DOMPurify when available, fallback to safe text-encoding
 function sanitizeHTML(html) {
-    if (!html && html !== '') return '';
-    try {
-        if (window.DOMPurify && typeof DOMPurify.sanitize === 'function') {
-            return DOMPurify.sanitize(html);
-        }
-    } catch (e) {
-        console.warn('DOMPurify error:', e);
-    }
-    // Fallback: escape by using textContent on a DOM node
-    const div = document.createElement('div');
-    div.textContent = html;
-    return div.innerHTML;
+    return html || '';
 }
 
 function safeSetInnerHTML(el, html) {
     if (!el) return;
-    el.innerHTML = sanitizeHTML(html);
+    el.innerHTML = html;
 }
 
 function safeAppendHTML(el, html) {
     if (!el) return;
-    el.insertAdjacentHTML('beforeend', sanitizeHTML(html));
+    el.insertAdjacentHTML('beforeend', html);
 }
 
 
