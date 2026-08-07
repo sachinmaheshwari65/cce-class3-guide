@@ -598,17 +598,17 @@
             </p>
             
             <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📁 Option 1: PDF / JSON / TXT File અપલોડ કરો</label>
+                <label for="paperFileInput" style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📁 Option 1: PDF / JSON / TXT File અપલોડ કરો</label>
                 <input type="file" id="paperFileInput" accept=".pdf,.json,.txt" style="width: 100%; padding: 0.75rem; background: var(--bg-surface); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text-primary);" onchange="handlePaperFileUpload(event)">
             </div>
 
             <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🖼️ Option 2: આકૃતિ / Figure ઈમેજ ઉમેરો (ઈચ્છાધીન)</label>
+                <label for="diagramFileInput" style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🖼️ Option 2: આકૃતિ / Figure ઈમેજ ઉમેરો (ઈચ્છાધીન)</label>
                 <input type="file" id="diagramFileInput" accept="image/*" style="width: 100%; padding: 0.6rem; background: var(--bg-surface); border: 1px dashed var(--accent); border-radius: 8px; color: var(--text-primary);" onchange="handleDiagramImageUpload(event)">
             </div>
 
             <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📝 Option 3: પ્રશ્નપત્ર Text પેસ્ટ કરો</label>
+                <label for="paperTextarea" style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📝 Option 3: પ્રશ્નપત્ર Text પેસ્ટ કરો</label>
                 <textarea id="paperTextarea" rows="5" placeholder="ઉદાહરણ:\n1. [(4)² + (4)³] ÷ 20 = a²\nA) 2\nB) 4\nC) 3\nD) 1\n\n2. CCE 2024 પ્રશ્ન..." style="width: 100%; padding: 0.75rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: monospace; font-size: 0.85rem;"></textarea>
             </div>
 

@@ -18,7 +18,9 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
     // Resolve requested file path safely and prevent path traversal
     const requested = req.url === '/' ? '/index.html' : req.url.split('?')[0];
-    let filePath = path.join(__dirname, requested);
+    // Remove leading slash so path.join doesn't treat it as an absolute path on Windows
+    const relRequested = requested.replace(/^\\|^\//, '');
+    let filePath = path.join(__dirname, relRequested);
     const resolved = path.resolve(filePath);
     const base = path.resolve(__dirname) + path.sep;
 
